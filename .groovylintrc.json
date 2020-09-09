@@ -1,0 +1,17 @@
+{
+    "extends": "recommended",
+    "rules": {
+        "CompileStatic": {
+            "enabled": false
+        },
+        "DuplicateStringLiteral": {
+            "enabled": false
+        },
+        "NoDef": {
+            "enabled": false
+        },
+        "VariableTypeRequired": {
+            "enabled": false
+        }
+    }
+}
