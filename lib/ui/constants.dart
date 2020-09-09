@@ -10,6 +10,6 @@ final kInputBorderStyle = OutlineInputBorder(
   ),
 );
 
-final String kRazorpayKey = "API KEY NOT PUBLIC";
+final String kRazorpayKey = "rzp_test_XACVmXwOI28T9l";
 
 final String kAppVersion = "v1.0.1+110";
