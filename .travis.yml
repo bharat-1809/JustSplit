@@ -6,8 +6,8 @@ android:
   components:
     - platform-tools
     - tools
-    - build-tools-29.0.2
-    - android-30
+    - build-tools-28.0.3
+    - android-28
     - add-on
     - extra
 before_script:
@@ -17,6 +17,8 @@ before_script:
   - export PATH=$PATH:$PWD/flutter/bin/cache/dart-sdk/bin
   - flutter doctor
   - cd -
+  - yes | sdkmanager "platforms;android-28"
+  - yes | sdkmanager "build-tools;28.0.3"
 script:
   # abort on error
   - set -e
