@@ -7,6 +7,7 @@
 
 <div align="center">
     <img src="https://img.shields.io/badge/Version-v1.0.1-blue" />
+    <img src="https://api.travis-ci.com/bharat-1809/JustSplit.svg?branch=master" />
     <a href="https://github.com/bharat-1809/JustSplit/blob/956cc4c483d4f571892550b5cbe8b6df0d3d923e/LICENSE"><img src="https://img.shields.io/badge/License-AGPL-briightgreen"></a>
     <a href="https://paypal.me/bsharma1809"><img src="https://img.shields.io/badge/Support-PayPal-red"></a>
 </div>
