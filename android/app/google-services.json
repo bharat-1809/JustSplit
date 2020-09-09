@@ -1,42 +1,34 @@
 {
   "project_info": {
-    "project_number": "693770959283",
-    "firebase_url": "https://contri-app.firebaseio.com",
-    "project_id": "contri-app",
-    "storage_bucket": "contri-app.appspot.com"
+    "project_number": "723046705128",
+    "firebase_url": "https://justsplit-dev.firebaseio.com",
+    "project_id": "justsplit-dev",
+    "storage_bucket": "justsplit-dev.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:693770959283:android:17e1f3579e5de293d6b3c6",
+        "mobilesdk_app_id": "1:723046705128:android:377bacc16d888b01fae65d",
         "android_client_info": {
           "package_name": "dot.studios.contri_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "693770959283-uoua27n0m6f6mlq8hps9pra5cvr2c708.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "dot.studios.contri_app",
-            "certificate_hash": "7313b6787a58fa26cc101b2ac1241fdb60e89b4f"
-          }
-        },
-        {
-          "client_id": "693770959283-a2mh4abbc0cooas16re6n4p42q3vfaqg.apps.googleusercontent.com",
+          "client_id": "723046705128-no3vkn02l41uv9l10l25vaf2cbt2lnen.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA-NPN9ieEvJKEZIAtsrVdIA0blSW2NZP4"
+          "current_key": "AIzaSyCnuS8FmonyH118Rt3WZG82USw8mgQaYG8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "693770959283-a2mh4abbc0cooas16re6n4p42q3vfaqg.apps.googleusercontent.com",
+              "client_id": "723046705128-no3vkn02l41uv9l10l25vaf2cbt2lnen.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
