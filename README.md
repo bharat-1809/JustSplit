@@ -55,6 +55,8 @@ Share expenses with friends and family and stop stressing about â€œwho owes whoâ
 
 If you encounter any problems feel free to open an [issue](https://github.com/bharat-1809/JustSplit/issues/new?assignees=&labels=&template=bug_report.md&title=). If you feel the app is missing a feature, please raise a [ticket](https://github.com/bharat-1809/JustSplit/issues/new?assignees=&labels=&template=feature_request.md&title=) on GitHub and I'll look into it. Pull requests are also welcome.
 
+See [Contributing Guidelines](CONTRIBUTING.md).
+
 <br>
 
 ## Contributing
@@ -69,8 +71,6 @@ Contributions of any kind are welcome! See [Contributing Guidelines](CONTRIBUTIN
     - `API`
 - App uses [BLoC](https://bloclibrary.dev/#/coreconcepts) extensively
 - If you find something in code that looks a bit odd, it might be some useful extension method from `lib/extensions`
-
-See [Contributing Guidelines](CONTRIBUTING.md).
 
 <br>
 
