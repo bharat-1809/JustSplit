@@ -21,7 +21,8 @@
 <br><br>
 
 <div align="center">
-Did you pay for your friends and feel anxious about asking money back? Dont you worry! Just Split all expenses with friends, family or anybody and bring peace to your mind. JustSplit's mission is to reduce the stress and awkwardness that money places on our most important relationships. Go ahead, download the app now!
+Share expenses with friends and family and stop stressing about “who owes who”. Our mission is to reduce the stress and awkwardness that money places on our most important relationships.
+
 </div>
 
 <br>
