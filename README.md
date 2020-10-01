@@ -21,7 +21,8 @@
 <br><br>
 
 <div align="center">
-Share expenses with friends and family and stop stressing about “who owes who”. JustSplit's mission is to reduce the stress and awkwardness that money places on our most important relationships.
+Share expenses with friends and family and stop stressing about “who owes who”. Our mission is to reduce the stress and awkwardness that money places on our most important relationships.
+
 </div>
 
 <br>
@@ -31,8 +32,6 @@ Share expenses with friends and family and stop stressing about “who owes who�
 <a href='https://play.google.com/store/apps/details?id=dot.studios.contri_app&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
     <img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width="200"/>
 </a>
-
-**Coming on App Store Soon**
 
 <br>
 
