@@ -40,12 +40,12 @@ Did you pay for your friends and feel anxious about asking money back? Dont you 
 <br>
 
 <div align="center">
-    <img src="Mockups/1.png" width="190">
-    <img src="Mockups/2.png" width="190">
-    <img src="Mockups/3.png" width="190">
-    <img src="Mockups/4.png" width="190">
-    <img src="Mockups/5.png" width="190">
-    <img src="Mockups/6.png" width="190">
+    <img src="Mockups/1.png" width="200">
+    <img src="Mockups/2.png" width="200">
+    <img src="Mockups/3.png" width="200">
+    <img src="Mockups/4.png" width="200">
+    <img src="Mockups/5.png" width="200">
+    <img src="Mockups/6.png" width="200">
 </div>
 
 <br>
