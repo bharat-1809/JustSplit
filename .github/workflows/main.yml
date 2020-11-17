@@ -37,14 +37,17 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: "1.22.x"
+          channel: "beta"
       
-      # Setiing up flutter sdk
-      - run: git clone https://github.com/flutter/flutter.git --depth 1 -b beta _flutter
-      - run: echo "::add-path::$GITHUB_WORKSPACE/_flutter/bin"
-      - run: flutter pub get
-        working-directory: ./
+      # Flutter commands
+      - name: Pub get
+        run: flutter pub get
       
       # Building fat apk
+      - name: Build fat apk
       - run: flutter build apk
       
       # Upload generated apk to the artifacts.
