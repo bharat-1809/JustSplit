@@ -136,7 +136,7 @@ class NotesPageBody extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           SvgPicture.asset(
-                            'assets/illustrations/add_friend-01.svg',// 'assets/illustrations/add_notes.svg',
+                            'assets/illustrations/add_notes.svg',
                             width: screenWidth * 0.80,
                           ),
                           SizedBox(height: screenHeight * 0.040236341),
