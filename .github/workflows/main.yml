@@ -44,7 +44,7 @@ jobs:
       
       # Flutter commands
       - name: Pub get
-        run: flutter pub get
+      - run: flutter pub get
       
       # Building fat apk
       - name: Build fat apk
