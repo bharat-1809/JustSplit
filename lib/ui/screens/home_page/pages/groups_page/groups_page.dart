@@ -71,11 +71,9 @@ class GroupsMainBody extends StatelessWidget {
                                         child: FlatButton(
                                           padding: EdgeInsets.all(0.0),
                                           onPressed: () {
-                                            Navigator.of(context).pushNamed(
-                                                DetailExpPage.id,
-                                                arguments: ScreenArguments(
-                                                    group:
-                                                        item.argObject.group));
+                                            Navigator.of(context).pushNamed(DetailExpPage.id,
+                                                arguments:
+                                                    ScreenArguments(group: item.argObject.group));
                                           },
                                           child: item,
                                         ),
@@ -94,14 +92,20 @@ class GroupsMainBody extends StatelessWidget {
                                   ),
                                   SizedBox(height: screenHeight * 0.040236341),
                                   Text(
-                                    "You don't have any groups yet! Start adding here\n",
-                                    style:
-                                        Theme.of(context).textTheme.bodyText1,
+                                    "You don't have any groups yet!\n",
+                                    style: Theme.of(context).textTheme.bodyText1,
                                   ),
-                                  Text(
-                                    "👇",
-                                    style:
-                                        Theme.of(context).textTheme.headline5,
+                                  RichText(
+                                    text: TextSpan(
+                                      text: "Start adding here ",
+                                      style: Theme.of(context).textTheme.bodyText1,
+                                      children: [
+                                        TextSpan(
+                                          text: "👇",
+                                          style: Theme.of(context).textTheme.headline6,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
