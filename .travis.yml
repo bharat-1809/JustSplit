@@ -1,12 +1,20 @@
 
 language: android
 sudo: required
-dist: trusty
+dist: xenial
+env:
+  global:
+  - JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+install:
+   - sudo apt-get -y remove default-jdk default-jre default-jdk-headless default-jre-headless ca-certificates-java openjdk-8-jdk openjdk-8-jdk-headless openjdk-8-jre openjdk-8-jre-headless
+   - sudo rm -rf /usr/local/lib/jvm
+   - sudo apt-get -y update && sudo apt-get -y install openjdk-8-jdk java-common
+   - java -version
 android:
   components:
     - platform-tools
     - tools
-    - build-tools-30.0.0
+    - build-tools-29.0.3
     - android-29
     - add-on
     - extra
