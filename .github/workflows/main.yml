@@ -46,7 +46,7 @@ jobs:
         run: flutter doctor
 
       - name: Creating repositories.cfg file for accepting licenses
-        run: mkdir -p /root/.android && touch /root/.android/repositories.cfg
+        run: mkdir -p .android && touch .android/repositories.cfg
 
       - name: Accepting licences
         run: flutter doctor --android-licenses
