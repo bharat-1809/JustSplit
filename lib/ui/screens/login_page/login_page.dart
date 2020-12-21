@@ -38,7 +38,7 @@ class LoginMainBody extends StatelessWidget {
   Widget build(BuildContext context) {
     void _onGoogleSignInPressed() {
       BlocProvider.of<LoginBloc>(context).add(LoginWithGoogle());
-      Scaffold.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text("Google Sign In"),
       ));
     }
@@ -197,7 +197,7 @@ class _LoginFormState extends State<LoginForm> {
     final _formKey = GlobalKey<FormState>();
     showDialog(
       context: context,
-      child: PassResetMailDialog(
+      builder: (context) => PassResetMailDialog(
         formKey: _formKey,
         emailController: _emailController,
         onPressed: () {

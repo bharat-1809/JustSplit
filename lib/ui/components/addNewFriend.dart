@@ -82,17 +82,22 @@ class _AddNewFriendDialogState extends State<AddNewFriendDialog> {
                       SizedBox(height: screenHeight * 0.026677255),
                       FlatButton(
                         onPressed: () async {
-                          bool _hasPermission = await FlutterContactPicker.hasPermission();
+                          bool _hasPermission =
+                              await FlutterContactPicker.hasPermission();
                           if (!_hasPermission) {
                             _hasPermission =
-                                await FlutterContactPicker.requestPermission(force: true);
+                                await FlutterContactPicker.requestPermission(
+                                    force: true);
                           }
                           if (_hasPermission) {
                             PhoneContact _contact =
-                                await FlutterContactPicker.pickPhoneContact(askForPermission: true);
+                                await FlutterContactPicker.pickPhoneContact(
+                                    askForPermission: true);
                             setState(() {
-                              widget.phoneNumberController.text = _contact.phoneNumber.number;
-                              final List<String> _nameList = _contact.fullName.split(" ");
+                              widget.phoneNumberController.text =
+                                  _contact.phoneNumber.number;
+                              final List<String> _nameList =
+                                  _contact.fullName.split(" ");
                               widget.firstNameController.text = _nameList[0];
                               widget.lastNameController.text =
                                   _nameList.length > 1 ? _nameList[1] : "";
@@ -150,8 +155,9 @@ class _AddNewFriendDialogState extends State<AddNewFriendDialog> {
                         prefixImage: 'assets/icons/auth_icons/phone.svg',
                         keyboardType: TextInputType.phone,
                         currentNode: _phoneNode,
-                        inputFormatters:
-                            isInternational ? [] : [DialCodeFormatter(Locale('en', 'IN'))],
+                        inputFormatters: isInternational
+                            ? []
+                            : [DialCodeFormatter(Locale('en', 'IN'))],
                         validator: _validator.validatePhoneNumber,
                       ),
                     ],
@@ -196,15 +202,19 @@ void inviteFriend(
     ),
   );
 
-  showDialog(context: context, child: _dialog);
+  showDialog(
+    context: context,
+    builder: (context) => _dialog,
+  );
 }
 
-Future<void> sendInviteSms({@required String phoneNumber, @required String firstName}) async {
+Future<void> sendInviteSms(
+    {@required String phoneNumber, @required String firstName}) async {
   final String _message =
       "Hi $firstName! Join me on JustSplit, an expense splitting application that I use for managing my expenses. Its simple and easy to use. Download it here: https://play.google.com/store/apps/details?id=dot.studios.contri_app";
 
-  String _result =
-      await sendSMS(message: _message, recipients: [phoneNumber]).catchError((onError) {
+  String _result = await sendSMS(message: _message, recipients: [phoneNumber])
+      .catchError((onError) {
     logger.e(onError);
   });
 

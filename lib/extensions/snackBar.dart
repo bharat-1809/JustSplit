@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 extension BuildContextX on BuildContext {
   showSnackBar(String text) {
-    Scaffold.of(this).hideCurrentSnackBar();
-    Scaffold.of(this).showSnackBar(
+    ScaffoldMessenger.of(this).hideCurrentSnackBar();
+    ScaffoldMessenger.of(this).showSnackBar(
       _snackBar(text),
     );
   }

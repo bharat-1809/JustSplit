@@ -171,7 +171,7 @@ class _ProfileFormState extends State<ProfileForm> {
                 showDialog(
                   context: context,
                   barrierDismissible: false,
-                  child:
+                  builder: (context) =>
                       AvatarPicker(pictureUrlController: _photoUrlController),
                 );
               },

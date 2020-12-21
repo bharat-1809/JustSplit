@@ -118,7 +118,7 @@ class _CurrencyFormFieldState extends State<CurrencyFormField> {
           logger.wtf("Currency Selector");
           showDialog(
             context: context,
-            child: _currencySelector(),
+            builder: (context) => _currencySelector(),
           );
         },
       ),

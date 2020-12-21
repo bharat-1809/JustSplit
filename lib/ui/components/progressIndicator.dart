@@ -5,7 +5,7 @@ void showProgress(BuildContext context) {
   showDialog(
     barrierDismissible: false,
     context: context,
-    child: Center(
+    builder: (context) => Center(
       child: Container(
         height: 50,
         width: 50,
