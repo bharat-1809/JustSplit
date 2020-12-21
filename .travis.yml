@@ -6,7 +6,7 @@ android:
   components:
     - platform-tools
     - tools
-    - build-tools-29.0.3
+    - build-tools-30.0.0
     - android-29
     - add-on
     - extra
@@ -15,7 +15,8 @@ before_script:
   - git clone https://github.com/flutter/flutter.git -b beta
   - export PATH=$PATH:$PWD/flutter/bin
   - export PATH=$PATH:$PWD/flutter/bin/cache/dart-sdk/bin
-  - flutter doctor --android-licences
+  - flutter doctor
+  - flutter doctor --android-licenses
   - cd -
   - yes | sdkmanager "platforms;android-28"
   - yes | sdkmanager "build-tools;28.0.3"

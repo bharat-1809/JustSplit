@@ -42,7 +42,10 @@ jobs:
           channel: "beta"
       
       # Flutter commands
-      - name: Accepting Licences
+      - name: Flutter doctor
+        run: flutter doctor
+
+      - name: Accepting licences
         run: flutter doctor --android-licenses
         
       - name: Pub get
