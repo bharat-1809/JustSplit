@@ -2,7 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomerSupport {
- static Future<void> mailToSupport({@required String subject, String body}) async {
+  static Future<void> mailToSupport(
+      {@required String subject, String body}) async {
     final _supportUrl =
         'mailto:care.justsplit@gmail.com?subject=$subject&body=';
     if (await canLaunch(_supportUrl)) {

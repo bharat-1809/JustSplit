@@ -6,7 +6,8 @@ class DrawerTile extends StatelessWidget {
   final Function onTap;
   final String title;
   final String icon;
-  const DrawerTile({@required this.title, @required this.icon, @required this.onTap})
+  const DrawerTile(
+      {@required this.title, @required this.icon, @required this.onTap})
       : assert(icon != null),
         assert(title != null),
         assert(onTap != null);

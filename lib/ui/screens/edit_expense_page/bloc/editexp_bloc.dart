@@ -122,7 +122,8 @@ class EditexpBloc extends Bloc<EditexpEvent, EditexpState> {
             );
           }
 
-          await ExpensesFunctions.updateExpense(id: event.expenseId, expense: _expense);
+          await ExpensesFunctions.updateExpense(
+              id: event.expenseId, expense: _expense);
           await loadExpenses();
           yield (EditExpSuccess());
         }

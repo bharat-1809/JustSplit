@@ -53,13 +53,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
               logger.v("Show Notifications: $_notificationStatus");
 
               if (_notificationStatus == null || _notificationStatus == true) {
-                NotificationHandler
-                    .uploadDeviceToken(userId: globalUser.id);
+                NotificationHandler.uploadDeviceToken(userId: globalUser.id);
               }
 
               initializeComments;
               logger.i("Comments Initialized");
-              
+
               yield (AuthAuthenticated());
             }
           } else {

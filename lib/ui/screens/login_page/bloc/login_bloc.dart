@@ -58,8 +58,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             logger.v("Show Notifications: $_notificationStatus");
 
             if (_notificationStatus == null || _notificationStatus == true) {
-              await NotificationHandler
-                  .uploadDeviceToken(userId: globalUser.id);
+              await NotificationHandler.uploadDeviceToken(
+                  userId: globalUser.id);
             }
 
             await initializeComments;
@@ -108,8 +108,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           logger.v("Show Notifications: $_notificationStatus");
 
           if (_notificationStatus == null || _notificationStatus == true) {
-            await NotificationHandler
-                .uploadDeviceToken(userId: globalUser.id);
+            await NotificationHandler.uploadDeviceToken(userId: globalUser.id);
           }
 
           await initializeComments;

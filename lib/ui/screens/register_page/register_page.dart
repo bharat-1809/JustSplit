@@ -67,7 +67,8 @@ class RegisterMainBody extends StatelessWidget {
                 height: screenHeight * 0.142312579, // 128
               ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.072916667), // 30
+                margin: EdgeInsets.symmetric(
+                    horizontal: screenWidth * 0.072916667), // 30
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
@@ -119,9 +120,10 @@ class RegisterMainBody extends StatelessWidget {
                           onTap: _onSignInPressed,
                           child: Text(
                             "Sign In",
-                            style: Theme.of(context).textTheme.headline6.copyWith(
-                                  fontSize: screenHeight * 0.01111817, // 10
-                                ),
+                            style:
+                                Theme.of(context).textTheme.headline6.copyWith(
+                                      fontSize: screenHeight * 0.01111817, // 10
+                                    ),
                           ),
                         ),
                       ],
