@@ -6,7 +6,8 @@ class ExpensesFunctions {
   static final _firestore = Firestore.instance;
 
   /// Get expense for the given id for the given user id
-  static Future<Expense> getExpenseById({String expenseId, String userId}) async {
+  static Future<Expense> getExpenseById(
+      {String expenseId, String userId}) async {
     final _docListQuerySnapshot = await _firestore
         .collection('users')
         .document(userId)
@@ -45,7 +46,8 @@ class ExpensesFunctions {
   }
 
   /// Returns current user's expenses as a list of [Expense]
-  static Future<List<Expense>> getExpenses([DocumentReference documentReference]) async {
+  static Future<List<Expense>> getExpenses(
+      [DocumentReference documentReference]) async {
     List<DocumentSnapshot> _docList;
 
     if (documentReference == null) {
@@ -57,7 +59,8 @@ class ExpensesFunctions {
           .getDocuments();
       _docList = _docListQuerySnapshot.documents;
     } else {
-      final _docListQuerySnapshot = await documentReference.collection('expenses').getDocuments();
+      final _docListQuerySnapshot =
+          await documentReference.collection('expenses').getDocuments();
       _docList = _docListQuerySnapshot.documents;
     }
 
@@ -99,7 +102,8 @@ class ExpensesFunctions {
     return _expenses;
   }
 
-  static List<Expense> getAllExpensesByUserId({String userId, List<Expense> expenses}) {
+  static List<Expense> getAllExpensesByUserId(
+      {String userId, List<Expense> expenses}) {
     List<Expense> _expenses = [];
     for (var expense in expenses) {
       if (expense.to == userId) {

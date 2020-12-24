@@ -35,8 +35,17 @@ class SaveButtonClicked extends EditexpEvent {
         assert(splitType != null);
 
   @override
-  List<Object> get props =>
-      [description, cost, comments, dateTime, splitType, payeeId, isGroupExpense, expenseId, oldExpense];
+  List<Object> get props => [
+        description,
+        cost,
+        comments,
+        dateTime,
+        splitType,
+        payeeId,
+        isGroupExpense,
+        expenseId,
+        oldExpense
+      ];
 }
 
 class DeleteExpense extends EditexpEvent {

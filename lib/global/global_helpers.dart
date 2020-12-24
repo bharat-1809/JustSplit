@@ -60,7 +60,8 @@ void _reloadTotalBalance() {
     } else if (expense.groupId != null) {
       final _expenseUsers = expense.expenseUsers;
       if (_expenseUsers != null) {
-        final _expenseUser = _expenseUsers.where((element) => element.userId == globalUser.id);
+        final _expenseUser =
+            _expenseUsers.where((element) => element.userId == globalUser.id);
         _totalBalance += _expenseUser.first.netBalance;
       }
     }

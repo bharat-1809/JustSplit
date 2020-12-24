@@ -39,10 +39,15 @@ jobs:
           java-version: '12.x'
       - uses: subosito/flutter-action@v1
         with:
-          flutter-version: "1.22.x"
+          # Currently specifyng the version if flutter as the latest beta release (1.25) is buggy
+          # TODO: Fetch the latest beta release
+          flutter-version: '1.24.x'
           channel: "beta"
       
       # Flutter commands
+      - name: Flutter doctor
+        run: flutter doctor
+
       - name: Pub get
         run: flutter pub get
       

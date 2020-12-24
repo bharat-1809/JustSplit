@@ -56,12 +56,14 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
       try {
         showProgress(context);
         final _user = await FirebaseAuth.instance.currentUser();
-        
+
         /// If the user is signed in using Google, they cannot change their password;
         if (_user.displayName != null ? _user.displayName.isNotEmpty : false) {
           Navigator.of(context).pop();
-          _scaffoldKey.currentState.showSnackBar(
-            SnackBar(content: Text("You cannot change the password of your Google account here")),
+          ScaffoldMessenger.of(_scaffoldKey.currentContext).showSnackBar(
+            SnackBar(
+                content: Text(
+                    "You cannot change the password of your Google account here")),
           );
           return;
         }
@@ -71,11 +73,12 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
           password: _currentPassController.text,
         );
 
-        final _reauthenticate = await _user.reauthenticateWithCredential(_credentials);
+        final _reauthenticate =
+            await _user.reauthenticateWithCredential(_credentials);
 
         if (_reauthenticate.user == null) {
           Navigator.of(context).pop();
-          _scaffoldKey.currentState.showSnackBar(
+          ScaffoldMessenger.of(_scaffoldKey.currentContext).showSnackBar(
             SnackBar(content: Text("A problem occured. Please Login again")),
           );
           return;
@@ -96,19 +99,19 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
       } on PlatformException catch (e) {
         Navigator.of(context).pop();
 
-        _scaffoldKey.currentState.showSnackBar(
+        ScaffoldMessenger.of(_scaffoldKey.currentContext).showSnackBar(
           SnackBar(content: Text("Error: ${e.message}")),
         );
       } on TimeoutException catch (e) {
         Navigator.of(context).pop();
 
-        _scaffoldKey.currentState.showSnackBar(
+        ScaffoldMessenger.of(_scaffoldKey.currentContext).showSnackBar(
           SnackBar(content: Text("Error Timedout: ${e.message}")),
         );
       } catch (e) {
         Navigator.of(context).pop();
 
-        _scaffoldKey.currentState.showSnackBar(
+        ScaffoldMessenger.of(_scaffoldKey.currentContext).showSnackBar(
           SnackBar(content: Text(e.toString())),
         );
       }
@@ -170,7 +173,8 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
                       prefixImage: "assets/icons/auth_icons/lock.svg",
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.done,
-                      validator: (confirmPass) => _validator.validateConfirmPassword(
+                      validator: (confirmPass) =>
+                          _validator.validateConfirmPassword(
                         newPassword: _newPassController.text,
                         confirmPassword: confirmPass,
                       ),

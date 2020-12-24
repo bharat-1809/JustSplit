@@ -25,7 +25,8 @@ class NewgroupBloc extends Bloc<NewgroupEvent, NewgroupState> {
         Group _group;
         List<User> _members = [globalUser];
         for (var _friendId in event.members) {
-          final _user = getCurrentFriends.firstWhere((element) => element.id == _friendId);
+          final _user = getCurrentFriends
+              .firstWhere((element) => element.id == _friendId);
           _members.add(_user.friend);
         }
         _group = Group(

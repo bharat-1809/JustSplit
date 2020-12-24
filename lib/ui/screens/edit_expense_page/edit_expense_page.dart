@@ -33,17 +33,19 @@ class EditExpensePage extends StatelessWidget {
           create: (context) => EditexpBloc(),
         ),
         BlocProvider(
-          create: (context) => DateBloc()..add(DateChanged(dateTime: DateTime.parse(args.date))),
+          create: (context) =>
+              DateBloc()..add(DateChanged(dateTime: DateTime.parse(args.date))),
         ),
         BlocProvider(
-          create: (context) => GroupnameBloc()..add(GroupNameChanged(groupId: args.groupId)),
+          create: (context) =>
+              GroupnameBloc()..add(GroupNameChanged(groupId: args.groupId)),
         ),
         BlocProvider(
           create: (context) => CommentsBloc(),
         ),
         BlocProvider(
-          create: (context) =>
-              SplitdropdownBloc()..add(SplitDropdownRequested(initialValue: args.splitType)),
+          create: (context) => SplitdropdownBloc()
+            ..add(SplitDropdownRequested(initialValue: args.splitType)),
         ),
       ],
       child: EditExpMainBody(argument: args),
@@ -97,7 +99,7 @@ class EditExpMainBody extends StatelessWidget {
             onPressed: () {
               showDialog(
                 context: context,
-                child: ExpenseDialog(
+                builder: (context) => ExpenseDialog(
                     title: "Delete Expense",
                     onPressed: () {
                       BlocProvider.of<EditexpBloc>(context).add(
@@ -118,7 +120,7 @@ class EditExpMainBody extends StatelessWidget {
             onPressed: () {
               showDialog(
                 context: context,
-                child: ExpenseDialog(
+                builder: (context) => ExpenseDialog(
                     title: "Settle Up",
                     onPressed: () {
                       BlocProvider.of<EditexpBloc>(context).add(
@@ -127,7 +129,9 @@ class EditExpMainBody extends StatelessWidget {
                           expenseId: argument.id,
                           description: _expNameTextController.text,
                           cost: 0.0, // SETTLE UP EXPENSE
-                          payeeId: argument.groupId == null ? argument.to : argument.groupId,
+                          payeeId: argument.groupId == null
+                              ? argument.to
+                              : argument.groupId,
                           isGroupExpense: argument.groupId != null,
                           dateTime: _dateTime,
                           comments: _comments,
@@ -168,7 +172,8 @@ class EditExpMainBody extends StatelessWidget {
                 }
               },
               child: Container(
-                margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.055611111), // 20
+                margin: EdgeInsets.symmetric(
+                    horizontal: screenWidth * 0.055611111), // 20
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -183,7 +188,8 @@ class EditExpMainBody extends StatelessWidget {
                       ),
                       SizedBox(height: screenHeight * 0.027795426), // 25
                       Container(
-                        margin: EdgeInsets.only(left: screenWidth * 0.017305556), // 10
+                        margin: EdgeInsets.only(
+                            left: screenWidth * 0.017305556), // 10
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -193,34 +199,45 @@ class EditExpMainBody extends StatelessWidget {
                               children: [
                                 Text(
                                   "With you and ",
-                                  style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                        fontSize: screenHeight * 0.016677255, // 15
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1
+                                      .copyWith(
+                                        fontSize:
+                                            screenHeight * 0.016677255, // 15
                                       ),
                                 ),
-                                SizedBox(width: screenWidth * 0.036458333), // 15
+                                SizedBox(
+                                    width: screenWidth * 0.036458333), // 15
                                 Builder(
                                   builder: (context) {
                                     if (argument.groupId == null) {
                                       final friend = getCurrentFriends
-                                          .firstWhere((element) => element.id == argument.to);
+                                          .firstWhere((element) =>
+                                              element.id == argument.to);
                                       return UserTile(
                                         name:
                                             "${friend.friend.firstName + ' ' + friend.friend.lastName}",
                                         id: friend.id,
-                                        photoUrl:
-                                            friend.friend.pictureUrl ?? "${expenseAvatars[0]}",
+                                        photoUrl: friend.friend.pictureUrl ??
+                                            "${expenseAvatars[0]}",
                                       );
                                     } else {
                                       // Updates the spliting type list when a group expense is selected
-                                      BlocProvider.of<SplitdropdownBloc>(context).add(
-                                        SplitDropdownRequested(isGroupExpense: true),
+                                      BlocProvider.of<SplitdropdownBloc>(
+                                              context)
+                                          .add(
+                                        SplitDropdownRequested(
+                                            isGroupExpense: true),
                                       );
-                                      final group = getCurrentGroups
-                                          .firstWhere((element) => element.id == argument.groupId);
+                                      final group = getCurrentGroups.firstWhere(
+                                          (element) =>
+                                              element.id == argument.groupId);
                                       return UserTile(
                                         name: group.name,
                                         id: group.id,
-                                        photoUrl: group.pictureUrl ?? "${expenseAvatars[0]}",
+                                        photoUrl: group.pictureUrl ??
+                                            "${expenseAvatars[0]}",
                                       );
                                     }
                                   },
@@ -237,15 +254,22 @@ class EditExpMainBody extends StatelessWidget {
                             RichText(
                               text: TextSpan(
                                 text: "***",
-                                style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    .copyWith(
                                       fontSize: screenHeight * 0.011786429,
                                       fontWeight: FontWeight.bold,
                                       color: Theme.of(context).errorColor,
                                     ),
                                 children: [
                                   TextSpan(
-                                    text: "  Split type is with respect to creator of expense",
-                                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                    text:
+                                        "  Split type is with respect to creator of expense",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        .copyWith(
                                           fontSize: screenHeight * 0.011786429,
                                           fontWeight: FontWeight.bold,
                                           color: Theme.of(context)
@@ -271,8 +295,12 @@ class EditExpMainBody extends StatelessWidget {
                                         value: item,
                                         child: Text(
                                           item,
-                                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                                fontSize: screenHeight * 0.015565438,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1
+                                              .copyWith(
+                                                fontSize:
+                                                    screenHeight * 0.015565438,
                                               ),
                                         ),
                                       ),
@@ -291,7 +319,10 @@ class EditExpMainBody extends StatelessWidget {
                             SizedBox(height: screenHeight * 0.027795426), // 25
                             Text(
                               "COMMENTS: ",
-                              style: Theme.of(context).textTheme.headline1.copyWith(
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline1
+                                  .copyWith(
                                     fontSize: screenHeight * 0.033354511 * 0.5,
                                     color: Theme.of(context)
                                         .textTheme
@@ -308,19 +339,27 @@ class EditExpMainBody extends StatelessWidget {
                               },
                               builder: (context, state) {
                                 return Container(
-                                  margin: EdgeInsets.only(left: screenWidth * 0.036458333), // 15
+                                  margin: EdgeInsets.only(
+                                      left: screenWidth * 0.036458333), // 15
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: _comments
                                         .map<Padding>(
                                           (item) => Padding(
                                             padding: EdgeInsets.symmetric(
-                                                vertical: (screenHeight * 0.033354511) / 5),
+                                                vertical: (screenHeight *
+                                                        0.033354511) /
+                                                    5),
                                             child: Text(
                                               "# $item",
-                                              style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                                    fontSize: screenHeight * 0.015677255,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1
+                                                  .copyWith(
+                                                    fontSize: screenHeight *
+                                                        0.015677255,
                                                   ),
                                             ),
                                           ),
@@ -403,7 +442,9 @@ Widget _buildBottomBar(BuildContext context) {
                       data: Theme.of(context).copyWith(
                           colorScheme: Theme.of(context).colorScheme.copyWith(
                                 primary: Theme.of(context).primaryColor,
-                                primaryVariant: Theme.of(context).primaryColor.withOpacity(0.7),
+                                primaryVariant: Theme.of(context)
+                                    .primaryColor
+                                    .withOpacity(0.7),
                               )),
                       child: child,
                     ),
@@ -439,7 +480,7 @@ Widget _buildBottomBar(BuildContext context) {
             onTap: () {
               showDialog(
                 context: context,
-                child: AddCommentsBox(
+                builder: (context) => AddCommentsBox(
                   onAddTap: () {
                     if (!commentsFormKey.currentState.validate()) return;
                     BlocProvider.of<CommentsBloc>(context).add(

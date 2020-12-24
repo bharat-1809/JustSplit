@@ -50,7 +50,8 @@ class JustSplitApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => ThemeBloc(),
       child: BlocBuilder<ThemeBloc, ThemeState>(
-        builder: (context, state) => MainAppWithTheme(context: context, state: state),
+        builder: (context, state) =>
+            MainAppWithTheme(context: context, state: state),
       ),
     );
   }

@@ -232,7 +232,7 @@ class DetailExpUpperBody extends StatelessWidget {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    child: ExpenseDialog(
+                    builder: (context) => ExpenseDialog(
                       title:
                           state.isGroupExpDetail ? "Delete Group" : "Settle Up",
                       onPressed: () async {

@@ -42,7 +42,8 @@ class GroupFunctions {
   }
 
   /// Get all groups of current user
-  static Future<List<Group>> getGroups([DocumentReference documentReference]) async {
+  static Future<List<Group>> getGroups(
+      [DocumentReference documentReference]) async {
     List<DocumentSnapshot> _docList;
     if (documentReference == null) {
       final _queryList = await _firestore
@@ -52,7 +53,8 @@ class GroupFunctions {
           .getDocuments();
       _docList = _queryList.documents;
     } else {
-      final _querylist = await documentReference.collection('groups').getDocuments();
+      final _querylist =
+          await documentReference.collection('groups').getDocuments();
       _docList = _querylist.documents;
     }
 
@@ -176,7 +178,8 @@ class GroupFunctions {
   /// Removes the [User] with given [userId] from the [Group] with
   /// given [groupId].
   /// This function does not update the group-expenses after removing the user
-  static Future<void> removeUserFromGroup({String groupId, String userId}) async {
+  static Future<void> removeUserFromGroup(
+      {String groupId, String userId}) async {
     final _group = await getGroupById(id: groupId);
     _group.members.removeWhere((user) {
       return user.id == userId;

@@ -34,7 +34,8 @@ class FriendFunctions {
   }
 
   /// Get a list of friends of the current user
-  static Future<List<Friend>> getFriends([DocumentReference documentReference]) async {
+  static Future<List<Friend>> getFriends(
+      [DocumentReference documentReference]) async {
     List<DocumentSnapshot> _docList;
     if (documentReference == null) {
       final _queryList = await _firestore
@@ -44,7 +45,8 @@ class FriendFunctions {
           .getDocuments();
       _docList = _queryList.documents;
     } else {
-      final _queryList = await documentReference.collection('friends').getDocuments();
+      final _queryList =
+          await documentReference.collection('friends').getDocuments();
       _docList = _queryList.documents;
     }
     List<Friend> _friends = [];
@@ -181,7 +183,7 @@ class FriendFunctions {
         },
         merge: true,
       );
-      
+
       return _docId;
     }
   }

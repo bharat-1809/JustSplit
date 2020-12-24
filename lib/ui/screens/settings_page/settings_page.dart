@@ -108,7 +108,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       onTap: () async {
                         showDialog(
                           context: context,
-                          child: ChangePasswordDialog(),
+                          builder: (context) => ChangePasswordDialog(),
                         );
                       },
                     ),

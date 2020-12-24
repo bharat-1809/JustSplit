@@ -27,7 +27,8 @@ class Validator {
       return null;
   }
 
-  String validateConfirmPassword({@required String confirmPassword, @required String newPassword}) {
+  String validateConfirmPassword(
+      {@required String confirmPassword, @required String newPassword}) {
     final _normalValidation = validatePassword(confirmPassword);
 
     if (_normalValidation != null) return _normalValidation;
@@ -62,7 +63,10 @@ class Validator {
   String validateCost(String cost) {
     if (cost.isEmpty)
       return "This field cannot be empty";
-    else if (cost.contains(",") || cost.contains("-") || cost.contains(" ") || cost.contains("_"))
+    else if (cost.contains(",") ||
+        cost.contains("-") ||
+        cost.contains(" ") ||
+        cost.contains("_"))
       return "Enter a valid amount";
     else if (cost.contains(RegExp(r'[A-Za-z]')))
       return "Enter a valid amount";

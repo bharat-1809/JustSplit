@@ -10,7 +10,7 @@ void showLegaleseDialog({
 }) {
   showDialog(
     context: context,
-    child: Container(
+    builder: (context) => Container(
       width: screenWidth * 0.75,
       child: LegaleseDialog(
         icon: icon,

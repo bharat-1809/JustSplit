@@ -61,7 +61,8 @@ class NotesPageBody extends StatelessWidget {
                 expandableHeight: screenHeight * 0.125740823,
                 child: Container(
                   margin: EdgeInsets.symmetric(
-                      vertical: screenHeight * 0.02, horizontal: screenWidth * 0.050611111),
+                      vertical: screenHeight * 0.02,
+                      horizontal: screenWidth * 0.050611111),
                   child: Center(
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -85,12 +86,13 @@ class NotesPageBody extends StatelessWidget {
                           onPressed: () {
                             showDialog(
                               context: context,
-                              child: AddCommentsBox(
+                              builder: (context) => AddCommentsBox(
                                 onAddTap: () {
                                   if (!_formKey.currentState.validate()) return;
 
-                                  BlocProvider.of<NotesBloc>(context)
-                                      .add(AddComment(comment: _commentController.text));
+                                  BlocProvider.of<NotesBloc>(context).add(
+                                      AddComment(
+                                          comment: _commentController.text));
                                   Navigator.of(context).pop();
                                 },
                                 onCancelTap: () {
@@ -118,12 +120,14 @@ class NotesPageBody extends StatelessWidget {
               },
               child: state.commentList.length > 0
                   ? Container(
-                      margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.03), // 20
+                      margin: EdgeInsets.symmetric(
+                          horizontal: screenWidth * 0.03), // 20
                       child: SingleChildScrollView(
                         child: Column(
                           children: state.commentList
                               .map((item) => Padding(
-                                    padding: EdgeInsets.symmetric(vertical: screenHeight * 0.005),
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: screenHeight * 0.005),
                                     child: item,
                                   ))
                               .toList(),

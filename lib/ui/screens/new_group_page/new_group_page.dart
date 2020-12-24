@@ -191,7 +191,7 @@ class GroupForm extends StatelessWidget {
                   showDialog(
                       context: context,
                       barrierDismissible: false,
-                      child: AvatarPicker(
+                      builder: (context) => AvatarPicker(
                           pictureUrlController: photoUrlController));
                 },
                 child: CircleAvatar(

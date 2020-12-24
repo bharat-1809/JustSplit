@@ -67,7 +67,8 @@ class FriendsMainBody extends StatelessWidget {
               controller: _refreshController,
               onRefresh: () async {
                 await initializeApi;
-                BlocProvider.of<FriendsBloc>(context).add(FriendsPageRequested());
+                BlocProvider.of<FriendsBloc>(context)
+                    .add(FriendsPageRequested());
                 _refreshController.refreshCompleted();
               },
               child: Container(
@@ -85,7 +86,8 @@ class FriendsMainBody extends StatelessWidget {
                                     (item) => Padding(
                                       padding: EdgeInsets.only(bottom: 15),
                                       child: FlatButton(
-                                        shape: RoundedRectangleBorder(borderRadius: kBorderRadius),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: kBorderRadius),
                                         color: Theme.of(context).cardColor,
                                         padding: EdgeInsets.all(0.0),
                                         onPressed: () {
@@ -163,7 +165,7 @@ class NewFriendButton extends StatelessWidget {
       onPressed: () {
         showDialog(
           context: context,
-          child: AddNewFriendDialog(
+          builder: (context) => AddNewFriendDialog(
             onPressed: () {
               if (!formKey.currentState.validate()) return;
               BlocProvider.of<FriendsBloc>(context).add(
