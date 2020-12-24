@@ -2,7 +2,6 @@
 language: android
 sudo: required
 dist: trusty
-jdk: openjdk8
 android:
   components:
     - platform-tools
@@ -12,9 +11,10 @@ android:
     - add-on
     - extra
 before_script:
-  - java -version
   - cd ..
-  - git clone https://github.com/flutter/flutter.git -b beta
+  # Currently specifyng the version of flutter as latest beta release is buggy
+  # TODO: Clone the latest beta
+  - git clone -b 1.24.0-10.2.pre --depth 1 https://github.com/flutter/flutter.git
   - export PATH=$PATH:$PWD/flutter/bin
   - export PATH=$PATH:$PWD/flutter/bin/cache/dart-sdk/bin
   - flutter doctor

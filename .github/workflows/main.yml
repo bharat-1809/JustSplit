@@ -39,6 +39,8 @@ jobs:
           java-version: '12.x'
       - uses: subosito/flutter-action@v1
         with:
+          # Currently specifyng the version if flutter as the latest beta release (1.25) is buggy
+          # TODO: Fetch the latest beta release
           flutter-version: '1.24.x'
           channel: "beta"
       
@@ -46,12 +48,6 @@ jobs:
       - name: Flutter doctor
         run: flutter doctor
 
-      - name: Creating repositories.cfg file for accepting licenses
-        run: sudo mkdir -p /home/runner/.android && touch /home/runner/.android/repositories.cfg
-
-      - name: Accepting licences
-        run: flutter doctor --android-licenses
-        
       - name: Pub get
         run: flutter pub get
       
