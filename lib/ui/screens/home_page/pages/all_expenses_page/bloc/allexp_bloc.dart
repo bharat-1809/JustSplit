@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:contri_app/api/models/friend_model.dart';
+import 'package:contri_app/api/models/user_model.dart';
 import 'package:contri_app/global/global_helpers.dart';
 import 'package:contri_app/global/storage_constants.dart';
 import 'package:contri_app/ui/components/customTile.dart';
@@ -41,7 +42,13 @@ class AllexpBloc extends Bloc<AllexpEvent, AllexpState> {
         for (var _expense in _expenses.reversed.toList()) {
           if (_expense.groupId == null) {
             final _user = getCurrentFriends
-                .firstWhere((element) => element.id == _expense.to)
+                .firstWhere(
+                  (element) => element.id == _expense.to,
+                  // In case a bad expense is created, this can handle the null value of the other user
+                  orElse: () => Friend(
+                      friend:
+                          User(firstName: "Error:402 Bad", lastName: "User")),
+                )
                 .friend;
 
             final _dateTime = _convertDateTime(DateTime.parse(_expense.date));
