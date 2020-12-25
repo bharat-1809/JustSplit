@@ -35,7 +35,6 @@ class _AddNewFriendDialogState extends State<AddNewFriendDialog> {
   final _firstNameNode = FocusNode();
   final _lastNameNode = FocusNode();
   final _phoneNode = FocusNode();
-
   final _validator = Validator();
 
   @override
@@ -45,6 +44,8 @@ class _AddNewFriendDialogState extends State<AddNewFriendDialog> {
       actions: <Widget>[
         FlatButton(
           onPressed: () {
+            Navigator.of(context).pop();
+            // Another 'pop' to restrict the user form adding expense with a NULL user
             Navigator.of(context).pop();
           },
           child: Text("CANCEL"),

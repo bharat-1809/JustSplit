@@ -246,7 +246,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                           .add(HomeEvent.fromIndex(index));
                                     },
                                     backgroundColor: bgColorNavBar,
-                                    initialActiveIndex: state.index,
                                     style: TabStyle.fixedCircle,
                                     activeColor: activeColorNavBar,
                                     items: [

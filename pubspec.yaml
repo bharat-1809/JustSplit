@@ -19,7 +19,7 @@ dependencies:
   logger: ^0.9.1
   shared_preferences: ">=0.5.0 <2.0.0"
   flare_flutter: ^2.0.5
-  convex_bottom_bar: ^2.4.0
+  convex_bottom_bar: ^2.6.0
   firebase_image: ^0.1.6
   fluttercontactpicker: ^2.4.3
   flutter_svg: any
