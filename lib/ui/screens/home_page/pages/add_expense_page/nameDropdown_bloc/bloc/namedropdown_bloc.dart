@@ -6,6 +6,7 @@ import 'package:contri_app/global/global_helpers.dart';
 import 'package:contri_app/global/storage_constants.dart';
 import 'package:contri_app/ui/components/scren_arguments.dart';
 import 'package:contri_app/ui/components/userTile_addExpPage.dart';
+import 'package:contri_app/ui/constants.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -68,7 +69,7 @@ class NamedropdownBloc extends Bloc<NamedropdownEvent, NamedropdownState> {
           _usersList.add(
             UserTile(
               name: "Add Friend",
-              id: "Add Friend",
+              id: kAddFriendId,
               photoUrl: userAvatars[Random().nextInt(userAvatars.length)],
             ),
           );
@@ -78,7 +79,7 @@ class NamedropdownBloc extends Bloc<NamedropdownEvent, NamedropdownState> {
         }
       }
       if (event is ChangeNameDropdown) {
-        if (event.newValue == "Add Friend") {
+        if (event.newValue == kAddFriendId) {
           yield (AddingNewFriend());
         }
 

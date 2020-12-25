@@ -12,6 +12,7 @@ import 'package:contri_app/ui/components/commentsDialogBox.dart';
 import 'package:contri_app/ui/components/progressIndicator.dart';
 import 'package:contri_app/ui/components/scren_arguments.dart';
 import 'package:contri_app/ui/components/userTile_addExpPage.dart';
+import 'package:contri_app/ui/constants.dart';
 import 'package:contri_app/ui/global/utils.dart';
 import 'package:contri_app/ui/global/validators.dart';
 import 'package:contri_app/ui/screens/home_page/home_page.dart';
@@ -121,22 +122,33 @@ class AddExpMainBody extends StatelessWidget {
 
     return Scaffold(
       bottomNavigationBar: _buildBottomBar(context),
-      appBar: _buildAppBar(context, onSaveTap: () {
-        if (!_formKey.currentState.validate()) return;
-        BlocProvider.of<AddexpBloc>(context).add(
-          SaveButtonClicked(
-            payerId: globalUser.id,
-            payeeId: _payeeUser,
-            expenseName: _descriptionController.text,
-            amount: double.parse(_costController.text),
-            dateTime: _date,
-            splittingType: _splitType,
-            isGroupExpense: _isGroupExpense,
-            comments: _comments,
-            photoUrl: expenseAvatars[avatarIndex],
-          ),
-        );
-      }),
+      appBar: _buildAppBar(
+        context,
+        onSaveTap: () {
+          if (!_formKey.currentState.validate())
+            return;
+          else if (_payeeUser ==
+              kAddFriendId) // This ensures that expense is not added against a NULL user
+          {
+            context.showSnackBar('Oops!! No friend selected');
+            return;
+          } else {
+            BlocProvider.of<AddexpBloc>(context).add(
+              SaveButtonClicked(
+                payerId: globalUser.id,
+                payeeId: _payeeUser,
+                expenseName: _descriptionController.text,
+                amount: double.parse(_costController.text),
+                dateTime: _date,
+                splittingType: _splitType,
+                isGroupExpense: _isGroupExpense,
+                comments: _comments,
+                photoUrl: expenseAvatars[avatarIndex],
+              ),
+            );
+          }
+        },
+      ),
       body: BlocConsumer<AddexpBloc, AddexpState>(
         listener: (context, state) {
           if (state is AddexpFailure) {
@@ -252,18 +264,18 @@ class AddExpMainBody extends StatelessWidget {
                                                   context)
                                               .add(
                                             ChangeNameDropdown(
-                                                newValue: newFriendId,
-                                                dropdownList: [
-                                                  UserTile(
-                                                    name:
-                                                        '${_newFriendFirstNameController.text + " " + _newFriendLastNameController.text}',
-                                                    id: newFriendId,
-                                                    photoUrl: userAvatars[
-                                                        Random().nextInt(
-                                                            userAvatars
-                                                                .length)],
-                                                  ),
-                                                ]),
+                                              newValue: newFriendId,
+                                              dropdownList: [
+                                                UserTile(
+                                                  name:
+                                                      '${_newFriendFirstNameController.text + " " + _newFriendLastNameController.text}',
+                                                  id: newFriendId,
+                                                  photoUrl: userAvatars[Random()
+                                                      .nextInt(
+                                                          userAvatars.length)],
+                                                ),
+                                              ],
+                                            ),
                                           );
                                         },
                                       ),
