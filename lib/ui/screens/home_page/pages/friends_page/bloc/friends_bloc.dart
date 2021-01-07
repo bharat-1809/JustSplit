@@ -109,7 +109,7 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
             );
           }
         }
-
+        _friendsList.sort((a, b) => a.name.compareTo(b.name));
         yield (FriendsPageLoaded(friendsList: _friendsList));
       }
       if (event is AddNewFriend) {
@@ -125,7 +125,6 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
         final _friend = Friend(
           friend: _user,
         );
-
         await FriendFunctions.createFriend(friend: _friend);
         await loadFriends();
         yield (FriendsPageSuccess(
