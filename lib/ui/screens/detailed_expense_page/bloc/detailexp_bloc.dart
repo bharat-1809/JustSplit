@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:contri_app/api/functions/expenses_functions.dart';
+import 'package:contri_app/api/functions/friends_functions.dart';
 import 'package:contri_app/api/functions/group_functions.dart';
 import 'package:contri_app/global/global_helpers.dart';
 import 'package:contri_app/global/storage_constants.dart';
@@ -196,6 +197,12 @@ class DetailexpBloc extends Bloc<DetailexpEvent, DetailexpState> {
         await loadGroups();
         await loadExpenses();
         yield (DeleteGroupSuccess());
+      }
+      if (event is DeleteFriend) {
+        yield DetailExpLoading();
+        await FriendFunctions.deleteFriend(id: event.friendid);
+        await loadFriends();
+        yield DeleteFriendSuccess();
       }
     } on PlatformException catch (e) {
       yield (DetailExpFailure(message: "Error: ${e.message}"));

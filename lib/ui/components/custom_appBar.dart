@@ -6,12 +6,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double expandableHeight;
   final Widget leading;
   final Widget title;
+  final List<Widget> actions;
   CustomAppBar({
     @required this.height,
     @required this.expandableHeight,
     @required this.child,
     this.leading,
     this.title,
+    this.actions,
   });
 
   @override
@@ -20,6 +22,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+      actions: actions,
       stretch: true,
       automaticallyImplyLeading: false,
       expandedHeight: expandableHeight,

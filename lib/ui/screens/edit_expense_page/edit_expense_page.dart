@@ -99,14 +99,14 @@ class EditExpMainBody extends StatelessWidget {
             onPressed: () {
               showDialog(
                 context: context,
-                builder: (context) => ExpenseDialog(
+                builder: (dialogContext) => ExpenseDialog(
                     title: "Delete Expense",
                     onPressed: () {
                       BlocProvider.of<EditexpBloc>(context).add(
                         DeleteExpense(expenseId: argument.id),
                       );
 
-                      Navigator.of(context).pop();
+                      Navigator.of(dialogContext).pop();
                     },
                     content: "Do you really want to delete the expense?",
                     proceedButtonText: "Delete"),
@@ -120,7 +120,7 @@ class EditExpMainBody extends StatelessWidget {
             onPressed: () {
               showDialog(
                 context: context,
-                builder: (context) => ExpenseDialog(
+                builder: (dialogContext) => ExpenseDialog(
                     title: "Settle Up",
                     onPressed: () {
                       BlocProvider.of<EditexpBloc>(context).add(
@@ -139,7 +139,7 @@ class EditExpMainBody extends StatelessWidget {
                         ),
                       );
 
-                      Navigator.of(context).pop();
+                      Navigator.of(dialogContext).pop();
                     },
                     content: "Do you want to settle up this expense?",
                     proceedButtonText: "Settle Up"),
@@ -480,7 +480,7 @@ Widget _buildBottomBar(BuildContext context) {
             onTap: () {
               showDialog(
                 context: context,
-                builder: (context) => AddCommentsBox(
+                builder: (dialogContext) => AddCommentsBox(
                   onAddTap: () {
                     if (!commentsFormKey.currentState.validate()) return;
                     BlocProvider.of<CommentsBloc>(context).add(
@@ -489,10 +489,10 @@ Widget _buildBottomBar(BuildContext context) {
                       ),
                     );
                     commentsController.clear();
-                    Navigator.of(context).pop();
+                    Navigator.of(dialogContext).pop();
                   },
                   onCancelTap: () {
-                    Navigator.of(context).pop();
+                    Navigator.of(dialogContext).pop();
                   },
                   textController: commentsController,
                   formKey: commentsFormKey,

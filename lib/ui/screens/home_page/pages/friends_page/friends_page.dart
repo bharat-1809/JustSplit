@@ -165,7 +165,7 @@ class NewFriendButton extends StatelessWidget {
       onPressed: () {
         showDialog(
           context: context,
-          builder: (context) => AddNewFriendDialog(
+          builder: (dialogContext) => AddNewFriendDialog(
             onPressed: () {
               if (!formKey.currentState.validate()) return;
               BlocProvider.of<FriendsBloc>(context).add(
@@ -176,7 +176,7 @@ class NewFriendButton extends StatelessWidget {
                   phoneNumber: phoneNumberController.text,
                 ),
               );
-              Navigator.of(context).pop();
+              Navigator.of(dialogContext).pop();
             },
             formKey: formKey,
             firstNameController: firstNameController,

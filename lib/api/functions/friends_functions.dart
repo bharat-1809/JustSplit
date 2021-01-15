@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:contri_app/api/functions/expenses_functions.dart';
 import 'package:contri_app/api/models/friend_model.dart';
 import 'package:contri_app/api/models/user_model.dart';
 import 'package:contri_app/global/global_helpers.dart';
+import 'package:flutter/material.dart';
 
 class FriendFunctions {
   static final _firestore = Firestore.instance;
@@ -186,5 +188,21 @@ class FriendFunctions {
 
       return _docId;
     }
+  }
+
+  static Future<void> deleteFriend({@required String id}) async {
+    print(id);
+    final _listExp = getCurrentExpenses;
+    _listExp.forEach((element) async {
+      if (element.to == id) {
+        await ExpensesFunctions.deleteExpense(id: element.id);
+      }
+    });
+    await _firestore
+        .collection('users')
+        .document(globalUser.id)
+        .collection('friends')
+        .document(id)
+        .delete();
   }
 }

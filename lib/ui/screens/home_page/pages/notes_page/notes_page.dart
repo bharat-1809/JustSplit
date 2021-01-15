@@ -86,17 +86,17 @@ class NotesPageBody extends StatelessWidget {
                           onPressed: () {
                             showDialog(
                               context: context,
-                              builder: (context) => AddCommentsBox(
+                              builder: (dialogContext) => AddCommentsBox(
                                 onAddTap: () {
                                   if (!_formKey.currentState.validate()) return;
 
                                   BlocProvider.of<NotesBloc>(context).add(
                                       AddComment(
                                           comment: _commentController.text));
-                                  Navigator.of(context).pop();
+                                  Navigator.of(dialogContext).pop();
                                 },
                                 onCancelTap: () {
-                                  Navigator.of(context).pop();
+                                  Navigator.of(dialogContext).pop();
                                 },
                                 textController: _commentController,
                                 formKey: _formKey,

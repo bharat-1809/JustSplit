@@ -46,3 +46,5 @@ class DetailExpFailure extends DetailexpState {
 }
 
 class DeleteGroupSuccess extends DetailexpState {}
+
+class DeleteFriendSuccess extends DetailexpState {}
