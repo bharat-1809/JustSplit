@@ -83,7 +83,7 @@ class DetailExpMainBody extends StatelessWidget {
           arguments: ScreenArguments(homeIndex: 1),
         );
       } else if (state is DeleteFriendSuccess) {
-        Navigator.of(context).pushReplacementNamed(FriendsPage.id);
+        Navigator.of(context).pushReplacementNamed(HomePage.id);
       }
     }, builder: (context, state) {
       if (state is DetailexpInitialState) {

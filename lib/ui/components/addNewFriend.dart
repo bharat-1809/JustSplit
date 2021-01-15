@@ -46,7 +46,7 @@ class _AddNewFriendDialogState extends State<AddNewFriendDialog> {
           onPressed: () {
             Navigator.of(context).pop();
             // Another 'pop' to restrict the user form adding expense with a NULL user
-            //TODO: comment
+            //Commented the statement below as it was popping the homepage.
             // Navigator.of(context).pop();
           },
           child: Text("CANCEL"),
