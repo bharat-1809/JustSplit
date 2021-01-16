@@ -191,11 +191,11 @@ class FriendFunctions {
   }
 
   static Future<void> deleteFriend({@required String id}) async {
-    print(id);
     final _listExp = getCurrentExpenses;
     _listExp.forEach((element) async {
       if (element.to == id) {
         await ExpensesFunctions.deleteExpense(id: element.id);
+        getCurrentExpenses.remove(element);
       }
     });
     await _firestore

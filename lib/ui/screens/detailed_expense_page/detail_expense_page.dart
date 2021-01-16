@@ -107,7 +107,6 @@ class DetailExpMainBody extends StatelessWidget {
                 ),
                 actions: [
                   PopupMenuButton(
-                    // padding: EdgeInsets.all(0),
                     itemBuilder: (_) => <PopupMenuItem<String>>[
                       PopupMenuItem<String>(
                         child: Text(' Delete Friend'),
@@ -117,7 +116,7 @@ class DetailExpMainBody extends StatelessWidget {
                     onSelected: (ans) async {
                       showDialog(
                         context: context,
-                        builder: (context1) => DeleteFriendDialog(
+                        builder: (dialogContext) => DeleteFriendDialog(
                           title: 'Delete Friend',
                           content:
                               'Do you want to delete friend? All the expenses with this friend will also be deleted.',
