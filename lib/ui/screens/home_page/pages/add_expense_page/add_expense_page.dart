@@ -567,7 +567,7 @@ Widget _buildBottomBar(BuildContext context) {
             onTap: () {
               showDialog(
                 context: context,
-                builder: (context) => AddCommentsBox(
+                builder: (dialogContext) => AddCommentsBox(
                   onAddTap: () {
                     if (!commentsFormKey.currentState.validate()) return;
                     BlocProvider.of<CommentsBloc>(context).add(
@@ -576,10 +576,10 @@ Widget _buildBottomBar(BuildContext context) {
                       ),
                     );
                     commentsController.clear();
-                    Navigator.of(context).pop();
+                    Navigator.of(dialogContext).pop();
                   },
                   onCancelTap: () {
-                    Navigator.of(context).pop();
+                    Navigator.of(dialogContext).pop();
                   },
                   textController: commentsController,
                   formKey: commentsFormKey,

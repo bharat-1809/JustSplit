@@ -197,7 +197,7 @@ class _LoginFormState extends State<LoginForm> {
     final _formKey = GlobalKey<FormState>();
     showDialog(
       context: context,
-      builder: (context) => PassResetMailDialog(
+      builder: (dialogContext) => PassResetMailDialog(
         formKey: _formKey,
         emailController: _emailController,
         onPressed: () {
