@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:contri_app/api/functions/expenses_functions.dart';
+import 'package:contri_app/api/models/expense_model.dart';
 import 'package:contri_app/api/models/friend_model.dart';
 import 'package:contri_app/api/models/user_model.dart';
 import 'package:contri_app/global/global_helpers.dart';
@@ -36,8 +37,7 @@ class FriendFunctions {
   }
 
   /// Get a list of friends of the current user
-  static Future<List<Friend>> getFriends(
-      [DocumentReference documentReference]) async {
+  static Future<List<Friend>> getFriends([DocumentReference documentReference]) async {
     List<DocumentSnapshot> _docList;
     if (documentReference == null) {
       final _queryList = await _firestore
@@ -47,8 +47,7 @@ class FriendFunctions {
           .getDocuments();
       _docList = _queryList.documents;
     } else {
-      final _queryList =
-          await documentReference.collection('friends').getDocuments();
+      final _queryList = await documentReference.collection('friends').getDocuments();
       _docList = _queryList.documents;
     }
     List<Friend> _friends = [];
@@ -73,6 +72,7 @@ class FriendFunctions {
     return _friends;
   }
 
+  /// Create a new friend
   static Future<String> createFriend({Friend friend}) async {
     final _queryList = await _firestore.collection('users').getDocuments();
     final _docList = _queryList.documents;
@@ -190,19 +190,60 @@ class FriendFunctions {
     }
   }
 
+  /// Checks if the Friend can be deleted or not
+  /// If the friend shares a group with the user then they cannot be deleted
+  static bool canDeleteFriend({@required String id}) {
+    for (var _grp in getCurrentGroups) {
+      final _frnd = _grp.members.firstWhere(
+        (usr) => usr.id == id,
+        orElse: () => null,
+      );
+
+      if (_frnd != null) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  /// Delete a friend. This deletes all the non-group expenses with that friend also
+  /// For group expenses the user needs to delete them manually
   static Future<void> deleteFriend({@required String id}) async {
     final _listExp = getCurrentExpenses;
-    _listExp.forEach((element) async {
-      if (element.to == id) {
-        await ExpensesFunctions.deleteExpense(id: element.id);
-        getCurrentExpenses.remove(element);
+
+    final List<Expense> _friendExpenses = [];
+
+    _listExp.forEach((exp) async {
+      if (exp.to == id) {
+        // Not awaiting for the function to execute as we are removing from the local list
+        // so the it will be updated locally and requests will be made to the database
+        // This way there's no need of again requesting the updated values from the database
+        ExpensesFunctions.deleteExpense(id: exp.id);
+        _friendExpenses.add(exp);
       }
     });
-    await _firestore
+
+    // Delete the expenses from the local list
+    getCurrentExpenses.removeWhere((exp) => _friendExpenses.contains(exp));
+
+    // Delete the friend from the local list
+    getCurrentFriends.removeWhere((f) => (f.id == id));
+
+    // Delete the friend from the database
+    _firestore
         .collection('users')
         .document(globalUser.id)
         .collection('friends')
         .document(id)
+        .delete();
+
+    // Delete the current user from deleted user's friend list
+    _firestore
+        .collection('users')
+        .document(id)
+        .collection('friends')
+        .document(globalUser.id)
         .delete();
   }
 }
