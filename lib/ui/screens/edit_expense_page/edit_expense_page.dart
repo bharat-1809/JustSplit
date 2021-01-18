@@ -5,7 +5,7 @@ import 'package:contri_app/ui/components/addExpTextFields.dart';
 import 'package:contri_app/ui/components/bottomBarItem.dart';
 import 'package:contri_app/ui/components/bottom_button.dart';
 import 'package:contri_app/ui/components/commentsDialogBox.dart';
-import 'package:contri_app/ui/components/expense_dialog.dart';
+import 'package:contri_app/ui/components/general_dialog.dart';
 import 'package:contri_app/ui/components/progressIndicator.dart';
 import 'package:contri_app/ui/components/userTile_addExpPage.dart';
 import 'package:contri_app/ui/global/utils.dart';
@@ -99,7 +99,7 @@ class EditExpMainBody extends StatelessWidget {
             onPressed: () {
               showDialog(
                 context: context,
-                builder: (dialogContext) => ExpenseDialog(
+                builder: (dialogContext) => GeneralDialog(
                     title: "Delete Expense",
                     onPressed: () {
                       BlocProvider.of<EditexpBloc>(context).add(
@@ -120,7 +120,7 @@ class EditExpMainBody extends StatelessWidget {
             onPressed: () {
               showDialog(
                 context: context,
-                builder: (dialogContext) => ExpenseDialog(
+                builder: (dialogContext) => GeneralDialog(
                     title: "Settle Up",
                     onPressed: () {
                       BlocProvider.of<EditexpBloc>(context).add(
