@@ -80,6 +80,7 @@ class DetailExpMainBody extends StatelessWidget {
           arguments: ScreenArguments(homeIndex: 1),
         );
       } else if (state is DeleteFriendSuccess) {
+        Navigator.of(context).popUntil((route) => route.isFirst);
         Navigator.of(context).pushReplacementNamed(HomePage.id);
       }
     }, builder: (context, state) {
