@@ -36,10 +36,9 @@ class DeleteGroup extends DetailexpEvent {
 }
 
 class DeleteFriend extends DetailexpEvent {
-  final String friendid;
-
-  DeleteFriend({@required this.friendid}) : assert(friendid != null);
+  final String friendId;
+  DeleteFriend({@required this.friendId}) : assert(friendId != null);
 
   @override
-  List<Object> get props => [friendid];
+  List<Object> get props => [friendId];
 }
