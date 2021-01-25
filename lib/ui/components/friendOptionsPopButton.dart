@@ -1,4 +1,4 @@
-import 'package:contri_app/api/functions/friends_functions.dart';
+import 'package:contri_app/sdk/functions/friends_functions.dart';
 import 'package:contri_app/ui/components/customPopMenuItem.dart';
 import 'package:contri_app/ui/components/general_dialog.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +20,7 @@ class FriendsOptionsPopButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),  
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
       icon: Icon(
         Icons.more_vert,
         color: Theme.of(context).cardColor,

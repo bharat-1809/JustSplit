@@ -1,4 +1,4 @@
-import 'package:contri_app/api/functions/customer_support_functions.dart';
+import 'package:contri_app/sdk/functions/customer_support_functions.dart';
 import 'package:contri_app/ui/components/customFormField.dart';
 import 'package:contri_app/ui/constants.dart';
 import 'package:contri_app/ui/global/utils.dart';

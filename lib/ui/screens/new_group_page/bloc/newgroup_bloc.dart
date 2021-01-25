@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:contri_app/api/functions/group_functions.dart';
-import 'package:contri_app/api/models/group_model.dart';
-import 'package:contri_app/api/models/user_model.dart';
+import 'package:contri_app/sdk/functions/group_functions.dart';
+import 'package:contri_app/sdk/models/group_model/group_model.dart';
+import 'package:contri_app/sdk/models/user_model/user_model.dart';
 import 'package:contri_app/global/global_helpers.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';

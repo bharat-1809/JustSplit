@@ -1,16 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:contri_app/api/functions/comment_functions.dart';
-import 'package:contri_app/api/functions/expenses_functions.dart';
-import 'package:contri_app/api/functions/friends_functions.dart';
-import 'package:contri_app/api/functions/group_functions.dart';
-import 'package:contri_app/api/functions/user_functions.dart';
-import 'package:contri_app/api/models/comment_model.dart';
-import 'package:contri_app/api/models/expense_model.dart';
-import 'package:contri_app/api/models/friend_model.dart';
-import 'package:contri_app/api/models/group_model.dart';
-import 'package:contri_app/api/models/user_model.dart';
+import 'package:contri_app/sdk/functions/comment_functions.dart';
+import 'package:contri_app/sdk/functions/expenses_functions.dart';
+import 'package:contri_app/sdk/functions/friends_functions.dart';
+import 'package:contri_app/sdk/functions/group_functions.dart';
+import 'package:contri_app/sdk/functions/user_functions.dart';
+import 'package:contri_app/sdk/models/comment_model/comment_model.dart';
+import 'package:contri_app/sdk/models/expense_model/expense_model.dart';
+import 'package:contri_app/sdk/models/friend_model/friend_model.dart';
+import 'package:contri_app/sdk/models/group_model/group_model.dart';
+import 'package:contri_app/sdk/models/user_model/user_model.dart';
 
-Future<void> _initializeApi() async {
+Future<void> _initializeSdk() async {
   await loadCurrentUser();
 
   final _fRef = await Firestore.instance
@@ -69,21 +69,21 @@ void _reloadTotalBalance() {
 }
 
 /// Comments need to be initialized separately inorder to minimize data usage
-/// by not calling network calls for updating comments when [initializeApi] is called.
+/// by not calling network calls for updating comments when [initializeSdk] is called.
 /// These will not change frequently
 Future<void> _initializeComments() async {
   final _comList = await CommentFunctions.getComments();
   _comments = _comList;
 }
 
-Future<void> _disposeApi() async {
+Future<void> _disposeSdk() async {
   _friends = [];
   _expenses = [];
   _groups = [];
   _totalBalance = null;
 }
 
-// A global user so that api calls are not called repeatedly
+// A global user so that sdk calls are not called repeatedly
 User _globalUser = User();
 List<Friend> _friends = [];
 List<Expense> _expenses = [];
@@ -100,7 +100,7 @@ List<Expense> get getCurrentExpenses => _expenses;
 List<Group> get getCurrentGroups => _groups;
 List<Comment> get getCurrentComments => _comments;
 double get totalBalance => _totalBalance;
-Future<void> get initializeApi => _initializeApi();
+Future<void> get initializeSdk => _initializeSdk();
 Future<void> get initializeComments => _initializeComments();
 void get reloadTotalBalance => _reloadTotalBalance();
-Future<void> get disposeApi => _disposeApi();
+Future<void> get disposeSdk => _disposeSdk();

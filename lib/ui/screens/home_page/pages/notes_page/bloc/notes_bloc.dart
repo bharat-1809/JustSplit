@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:contri_app/api/functions/comment_functions.dart';
-import 'package:contri_app/api/models/comment_model.dart';
+import 'package:contri_app/sdk/functions/comment_functions.dart';
+import 'package:contri_app/sdk/models/comment_model/comment_model.dart';
 import 'package:contri_app/global/global_helpers.dart';
 import 'package:contri_app/ui/components/comment_tile.dart';
 import 'package:equatable/equatable.dart';

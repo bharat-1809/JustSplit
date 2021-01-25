@@ -1,10 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:contri_app/api/functions/expenses_functions.dart';
-import 'package:contri_app/api/models/expense_model.dart';
+import 'package:contri_app/sdk/functions/expenses_functions.dart';
+import 'package:contri_app/sdk/models/expense_model/expense_model.dart';
 import 'package:contri_app/global/global_helpers.dart';
-import 'package:contri_app/global/logger.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -38,14 +37,6 @@ class EditexpBloc extends Bloc<EditexpEvent, EditexpState> {
           _splitType = event.splitType;
         }
 
-        logger.wtf(event.oldExpense.comments.toString());
-        logger.wtf(event.comments.toString());
-        logger.wtf("old ${event.oldExpense.cost.abs()} + ${event.cost.abs()}");
-        logger.wtf(event.oldExpense.cost.abs() == event.cost.abs());
-        logger.wtf(event.oldExpense.date == event.dateTime.toIso8601String());
-        logger.wtf(event.oldExpense.description == event.description);
-        logger.wtf(event.oldExpense.splitType == _splitType);
-
         if (event.oldExpense.comments.toString() == event.comments.toString() &&
             event.oldExpense.cost.abs() == event.cost.abs() &&
             event.oldExpense.date == event.dateTime.toIso8601String() &&
@@ -69,21 +60,25 @@ class EditexpBloc extends Bloc<EditexpEvent, EditexpState> {
 
             for (var _user in _groupMembers) {
               if (_user.id == globalUser.id) {
-                _expenseUsersList.add(ExpenseUsers(
-                  user: globalUser,
-                  userId: globalUser.id,
-                  netBalance: -(event.cost - netBalance),
-                  paidShare: event.cost,
-                  owedShare: event.cost - netBalance,
-                ));
+                _expenseUsersList.add(
+                  ExpenseUsers(
+                    user: globalUser,
+                    userId: globalUser.id,
+                    netBalance: -(event.cost - netBalance),
+                    paidShare: event.cost,
+                    owedShare: event.cost - netBalance,
+                  ),
+                );
               } else {
-                _expenseUsersList.add(ExpenseUsers(
-                  user: _user,
-                  userId: _user.id,
-                  netBalance: netBalance,
-                  paidShare: 0.0,
-                  owedShare: netBalance,
-                ));
+                _expenseUsersList.add(
+                  ExpenseUsers(
+                    user: _user,
+                    userId: _user.id,
+                    netBalance: netBalance,
+                    paidShare: 0.0,
+                    owedShare: netBalance,
+                  ),
+                );
               }
             }
 
@@ -122,8 +117,7 @@ class EditexpBloc extends Bloc<EditexpEvent, EditexpState> {
             );
           }
 
-          await ExpensesFunctions.updateExpense(
-              id: event.expenseId, expense: _expense);
+          await ExpensesFunctions.updateExpense(id: event.expenseId, expense: _expense);
           await loadExpenses();
           yield (EditExpSuccess());
         }

@@ -142,7 +142,7 @@ const double _textVerticalSeparation = 18.0;
 /// [showLicensePage].
 ///
 /// The licenses shown on the [LicensePage] are those returned by the
-/// [LicenseRegistry] API, which can be used to add more licenses to the list.
+/// [LicenseRegistry] sdk, which can be used to add more licenses to the list.
 class AboutDialog extends StatelessWidget {
   /// Creates an about box.
   ///
@@ -278,7 +278,7 @@ class AboutDialog extends StatelessWidget {
 /// a button that calls [showLicensePage].
 ///
 /// The licenses shown on the [LicensePage] are those returned by the
-/// [LicenseRegistry] API, which can be used to add more licenses to the list.
+/// [LicenseRegistry] sdk, which can be used to add more licenses to the list.
 class LicensePage extends StatefulWidget {
   /// Creates a page that shows licenses for software used by the application.
   ///
@@ -287,7 +287,7 @@ class LicensePage extends StatefulWidget {
   /// default to the empty string.
   ///
   /// The licenses shown on the [LicensePage] are those returned by the
-  /// [LicenseRegistry] API, which can be used to add more licenses to the list.
+  /// [LicenseRegistry] sdk, which can be used to add more licenses to the list.
   const LicensePage({
     Key key,
     this.applicationName,

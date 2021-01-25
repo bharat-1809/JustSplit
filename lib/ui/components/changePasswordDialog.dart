@@ -62,8 +62,10 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
           Navigator.of(context).pop();
           ScaffoldMessenger.of(_scaffoldKey.currentContext).showSnackBar(
             SnackBar(
-                content: Text(
-                    "You cannot change the password of your Google account here")),
+              content: Text(
+                "You cannot change the password of your Google account here",
+              ),
+            ),
           );
           return;
         }
@@ -79,7 +81,11 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
         if (_reauthenticate.user == null) {
           Navigator.of(context).pop();
           ScaffoldMessenger.of(_scaffoldKey.currentContext).showSnackBar(
-            SnackBar(content: Text("A problem occured. Please Login again")),
+            SnackBar(
+              content: Text(
+                "A problem occured. Please Login again",
+              ),
+            ),
           );
           return;
         }

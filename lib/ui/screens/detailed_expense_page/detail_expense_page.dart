@@ -26,7 +26,8 @@ class DetailExpPage extends StatelessWidget {
 
     return BlocProvider(
       create: (context) => DetailexpBloc()
-        ..add(DetailExpPageRequested(argObject: args, isGroupExpDetail: args.group != null)),
+        ..add(DetailExpPageRequested(
+            argObject: args, isGroupExpDetail: args.group != null),),
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -60,7 +61,8 @@ class DetailExpMainBody extends StatelessWidget {
   DetailExpMainBody({this.arguments});
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<DetailexpBloc, DetailexpState>(listener: (context, state) {
+    return BlocConsumer<DetailexpBloc, DetailexpState>(
+        listener: (context, state) {
       if (state is DetailExpFailure) {
         Navigator.of(context).pop();
         Navigator.of(context).pop();
@@ -70,7 +72,8 @@ class DetailExpMainBody extends StatelessWidget {
       } else if (state is DetailExpSuccess) {
         Navigator.of(context).pop();
         Navigator.of(context).pop();
-        Navigator.of(context).pushReplacementNamed(DetailExpPage.id, arguments: arguments);
+        Navigator.of(context)
+            .pushReplacementNamed(DetailExpPage.id, arguments: arguments);
       } else if (state is DeleteGroupSuccess) {
         Navigator.of(context).pop();
         Navigator.of(context).pop();
@@ -115,6 +118,7 @@ class DetailExpMainBody extends StatelessWidget {
                             );
                           },
                           onReminder: () {
+                            // TODO: Add the send reminder functionality
                             context.showSnackBar(
                               "This recipe is being cooked. Please wait for the developer to cook this recipe.",
                             );
@@ -172,7 +176,8 @@ class DetailExpMainBody extends StatelessWidget {
 class DetailExpUpperBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DetailexpBloc, DetailexpState>(builder: (context, state) {
+    return BlocBuilder<DetailexpBloc, DetailexpState>(
+        builder: (context, state) {
       if (state is DetailexpInitialState) {
         return Container(
           color: Theme.of(context).primaryColor,
@@ -185,7 +190,8 @@ class DetailExpUpperBody extends StatelessWidget {
                 elevation: 5.0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(100),
-                  side: BorderSide(width: 1.5, color: Theme.of(context).cardColor),
+                  side: BorderSide(
+                      width: 1.5, color: Theme.of(context).cardColor),
                 ),
                 child: Hero(
                   tag: "${state.id}",
@@ -197,7 +203,9 @@ class DetailExpUpperBody extends StatelessWidget {
                         logger.w("Error in fetching Firebase image");
                         logger.e(state.pictureUrl);
                         logger.e(error);
-                        return Image(image: FirebaseImage(state.pictureUrl ?? userAvatars[2]));
+                        return Image(
+                            image: FirebaseImage(
+                                state.pictureUrl ?? userAvatars[2]));
                       },
                       placeholder: AssetImage('assets/icons/misc/loader.png'),
                       image: FirebaseImage(state.pictureUrl ?? userAvatars[2]),
@@ -250,7 +258,8 @@ class DetailExpUpperBody extends StatelessWidget {
                   showDialog(
                     context: context,
                     builder: (dialogContext) => GeneralDialog(
-                      title: state.isGroupExpDetail ? "Delete Group" : "Settle Up",
+                      title:
+                          state.isGroupExpDetail ? "Delete Group" : "Settle Up",
                       onPressed: () async {
                         state.isGroupExpDetail
                             ? BlocProvider.of<DetailexpBloc>(context).add(
@@ -263,7 +272,8 @@ class DetailExpUpperBody extends StatelessWidget {
                       content: state.isGroupExpDetail
                           ? "Are you sure you want to delete the ${state.name} group? This will delete all the expenses linked to the group"
                           : "Are you sure you want to settle up all non-group expenses with ${state.name}? You cannot restore them later",
-                      proceedButtonText: state.isGroupExpDetail ? "DELETE GROUP" : "SETTLE UP",
+                      proceedButtonText:
+                          state.isGroupExpDetail ? "DELETE GROUP" : "SETTLE UP",
                     ),
                   );
                 },

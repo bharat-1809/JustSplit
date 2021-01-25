@@ -55,7 +55,7 @@ class AllExpMainBody extends StatelessWidget {
               physics: BouncingScrollPhysics(),
               controller: _refreshController,
               onRefresh: () async {
-                await initializeApi;
+                await initializeSdk;
                 BlocProvider.of<AllexpBloc>(context).add(AllexpRequested());
                 _refreshController.refreshCompleted();
               },

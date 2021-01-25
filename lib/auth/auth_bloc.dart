@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:contri_app/api/functions/messaging_functions.dart';
+import 'package:contri_app/sdk/functions/messaging_functions.dart';
 import 'package:contri_app/global/global_helpers.dart';
 import 'package:contri_app/global/logger.dart';
 import 'package:equatable/equatable.dart';
@@ -44,9 +44,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             } else {
               logger.i("All Checks Completed");
 
-              logger.i("Initializing API");
-              await initializeApi;
-              logger.i("API Initialized");
+              logger.i("Initializing SDK");
+              await initializeSdk;
+              logger.i("SDK Initialized");
 
               final _prefs = await SharedPreferences.getInstance();
               final _notificationStatus = _prefs.getBool('showNotifications');
@@ -74,7 +74,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await FirebaseAuth.instance.signOut();
         await GoogleSignIn().signOut();
 
-        await disposeApi;
+        await disposeSdk;
         yield (AuthUnAuthenticated(justLoggedOut: true));
       }
     } on PlatformException catch (e) {

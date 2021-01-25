@@ -1,4 +1,4 @@
-import 'package:contri_app/api/models/expense_model.dart';
+import 'package:contri_app/sdk/models/expense_model/expense_model.dart';
 import 'package:contri_app/global/global_helpers.dart';
 import 'package:contri_app/global/storage_constants.dart';
 import 'package:contri_app/ui/components/addExpTextFields.dart';

@@ -66,7 +66,7 @@ class FriendsMainBody extends StatelessWidget {
               physics: BouncingScrollPhysics(),
               controller: _refreshController,
               onRefresh: () async {
-                await initializeApi;
+                await initializeSdk;
                 BlocProvider.of<FriendsBloc>(context)
                     .add(FriendsPageRequested());
                 _refreshController.refreshCompleted();

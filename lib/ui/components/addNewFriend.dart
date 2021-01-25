@@ -45,8 +45,8 @@ class _AddNewFriendDialogState extends State<AddNewFriendDialog> {
         FlatButton(
           onPressed: () {
             Navigator.of(context).pop();
-            // Another 'pop' to restrict the user form adding expense with a NULL user
-            //Commented the statement below as it was popping the homepage.
+            // // Another 'pop' to restrict the user form adding expense with a NULL user
+            // This is commented out as this pops out the homepage when adding friends in the friend page
             // Navigator.of(context).pop();
           },
           child: Text("CANCEL"),

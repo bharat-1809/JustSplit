@@ -29,7 +29,8 @@ class DetailexpInitialState extends DetailexpState {
         assert(widgetList != null);
 
   @override
-  List<Object> get props => [name, phoneNumber, netBalance, widgetList, id, pictureUrl];
+  List<Object> get props =>
+      [name, phoneNumber, netBalance, widgetList, id, pictureUrl];
 }
 
 class DetailExpLoading extends DetailexpState {}
