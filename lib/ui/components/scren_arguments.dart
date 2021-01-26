@@ -1,6 +1,6 @@
-import 'package:contri_app/api/models/expense_model.dart';
-import 'package:contri_app/api/models/friend_model.dart';
-import 'package:contri_app/api/models/group_model.dart';
+import 'package:contri_app/sdk/models/expense_model/expense_model.dart';
+import 'package:contri_app/sdk/models/friend_model/friend_model.dart';
+import 'package:contri_app/sdk/models/group_model/group_model.dart';
 
 class ScreenArguments {
   /// This can be userId or groupId

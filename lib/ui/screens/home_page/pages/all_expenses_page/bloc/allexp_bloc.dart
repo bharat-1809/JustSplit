@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:contri_app/api/models/friend_model.dart';
-import 'package:contri_app/api/models/user_model.dart';
+import 'package:contri_app/sdk/models/friend_model/friend_model.dart';
+import 'package:contri_app/sdk/models/user_model/user_model.dart';
 import 'package:contri_app/global/global_helpers.dart';
 import 'package:contri_app/global/storage_constants.dart';
 import 'package:contri_app/ui/components/customTile.dart';

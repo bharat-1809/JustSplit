@@ -1,4 +1,4 @@
-import 'package:contri_app/api/functions/messaging_functions.dart';
+import 'package:contri_app/sdk/functions/messaging_functions.dart';
 import 'package:contri_app/ui/components/blueButton.dart';
 import 'package:contri_app/ui/components/customFormField.dart';
 import 'package:contri_app/ui/components/googleButton.dart';

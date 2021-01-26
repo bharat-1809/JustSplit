@@ -1,6 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:contri_app/api/models/user_model.dart';
+import 'package:contri_app/sdk/models/user_model/user_model.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'expense_model.g.dart';
+
+@JsonSerializable(explicitToJson: true)
+
+/// Expense model
 class Expense {
   Expense({
     this.id,
@@ -57,8 +62,14 @@ class Expense {
   /// This list is for only group expenses. In case of non-group expenses this remains empty or [null]
   List<ExpenseUsers> expenseUsers; // Incase of group expenses
   List comments;
+
+  factory Expense.fromJson(Map<String, dynamic> json) =>
+      _$ExpenseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ExpenseToJson(this);
 }
 
+@JsonSerializable(explicitToJson: true)
 class ExpenseUsers {
   ExpenseUsers({
     this.user,
@@ -73,42 +84,13 @@ class ExpenseUsers {
   double owedShare;
   double netBalance;
 
-  ExpenseUsers.fromJson(Map<String, dynamic> json)
-      : userId = json['userId'],
-        user = User(
-          id: json['user']['id'],
-          defaultCurrency: json['user']['defaultCurrency'],
-          email: json['user']['email'],
-          pictureUrl: json['user']['pictureUrl'],
-          firstName: json['user']['firstName'],
-          lastName: json['user']['lastName'],
-          phoneNumber: json['user']['phoneNumber'],
-          registrationStatus: json['user']['registrationStatus'],
-        ),
-        owedShare = json['owedShare'],
-        paidShare = json['paidShare'],
-        netBalance = json['netBalance'];
+  factory ExpenseUsers.fromJson(Map<String, dynamic> json) =>
+      _$ExpenseUsersFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    return {
-      'user': {
-        'id': user.id,
-        'firstName': user.firstName,
-        'lastName': user.lastName,
-        'defaultCurrency': user.defaultCurrency,
-        'email': user.email,
-        'pictureUrl': user.pictureUrl,
-        'registrationStatus': user.registrationStatus,
-        'phoneNumber': user.phoneNumber,
-      },
-      'userId': user.id,
-      'paidShare': paidShare,
-      'owedShare': owedShare,
-      'netBalance': netBalance,
-    };
-  }
+  Map<String, dynamic> toJson() => _$ExpenseUsersToJson(this);
 }
 
+@JsonSerializable(explicitToJson: true)
 class Balance {
   Balance({
     this.from,
@@ -119,5 +101,10 @@ class Balance {
   String from;
   String to;
   double balance;
-  Timestamp timestamp;
+  DateTime timestamp;
+
+  factory Balance.fromJson(Map<String, dynamic> json) =>
+      _$BalanceFromJson(json);
+
+  Map<String, dynamic> toJson() => _$BalanceToJson(this);
 }

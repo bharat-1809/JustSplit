@@ -1,4 +1,3 @@
-import 'package:contri_app/global/logger.dart';
 import 'package:contri_app/global/storage_constants.dart';
 import 'package:contri_app/ui/constants.dart';
 import 'package:contri_app/ui/global/utils.dart';
@@ -36,7 +35,6 @@ class _AvatarPickerState extends State<AvatarPicker> {
         FlatButton(
           onPressed: () {
             widget.pictureUrlController.text = selectedAvatar;
-            logger.v(widget.pictureUrlController.text);
             Navigator.of(context).pop();
           },
           child: Text("SELECT"),

@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:contri_app/api/functions/expenses_functions.dart';
-import 'package:contri_app/api/models/expense_model.dart';
+import 'package:contri_app/sdk/functions/expenses_functions.dart';
+import 'package:contri_app/sdk/models/expense_model/expense_model.dart';
 import 'package:contri_app/global/global_helpers.dart';
 import 'package:contri_app/ui/screens/home_page/pages/add_expense_page/splitDropdown_bloc/bloc/splitdropdown_bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -39,21 +39,25 @@ class AddexpBloc extends Bloc<AddexpEvent, AddexpState> {
 
           for (var _user in _groupMembers) {
             if (_user.id == globalUser.id) {
-              _expenseUsersList.add(ExpenseUsers(
-                user: globalUser,
-                userId: globalUser.id,
-                netBalance: -(event.amount - netBalance),
-                paidShare: event.amount,
-                owedShare: event.amount - netBalance,
-              ));
+              _expenseUsersList.add(
+                ExpenseUsers(
+                  user: globalUser,
+                  userId: globalUser.id,
+                  netBalance: -(event.amount - netBalance),
+                  paidShare: event.amount,
+                  owedShare: event.amount - netBalance,
+                ),
+              );
             } else {
-              _expenseUsersList.add(ExpenseUsers(
-                user: _user,
-                userId: _user.id,
-                netBalance: netBalance,
-                paidShare: 0.0,
-                owedShare: netBalance,
-              ));
+              _expenseUsersList.add(
+                ExpenseUsers(
+                  user: _user,
+                  userId: _user.id,
+                  netBalance: netBalance,
+                  paidShare: 0.0,
+                  owedShare: netBalance,
+                ),
+              );
             }
           }
 

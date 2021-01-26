@@ -22,11 +22,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      actions: actions,
       stretch: true,
       automaticallyImplyLeading: false,
       expandedHeight: expandableHeight,
       leading: leading,
+      actions: actions,
       title: title,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       flexibleSpace: FlexibleSpaceBar(

@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:bloc/bloc.dart';
-import 'package:contri_app/api/functions/friends_functions.dart';
-import 'package:contri_app/api/models/friend_model.dart';
-import 'package:contri_app/api/models/user_model.dart';
+import 'package:contri_app/sdk/functions/friends_functions.dart';
+import 'package:contri_app/sdk/models/friend_model/friend_model.dart';
+import 'package:contri_app/sdk/models/user_model/user_model.dart';
 import 'package:contri_app/global/global_helpers.dart';
 import 'package:contri_app/global/storage_constants.dart';
 import 'package:contri_app/ui/components/customTile.dart';
@@ -109,7 +109,10 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
             );
           }
         }
+
+        // Sort the friends list lexicographically
         _friendsList.sort((a, b) => a.name.compareTo(b.name));
+
         yield (FriendsPageLoaded(friendsList: _friendsList));
       }
       if (event is AddNewFriend) {
@@ -125,6 +128,7 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
         final _friend = Friend(
           friend: _user,
         );
+
         await FriendFunctions.createFriend(friend: _friend);
         await loadFriends();
         yield (FriendsPageSuccess(

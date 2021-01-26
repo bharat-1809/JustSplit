@@ -1,4 +1,4 @@
-import 'package:contri_app/api/functions/messaging_functions.dart';
+import 'package:contri_app/sdk/functions/messaging_functions.dart';
 import 'package:contri_app/auth/auth_bloc.dart';
 import 'package:contri_app/global/bloc_observer.dart';
 import 'package:contri_app/global/global_helpers.dart';

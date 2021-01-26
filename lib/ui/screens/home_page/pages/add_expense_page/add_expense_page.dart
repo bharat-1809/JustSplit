@@ -1,8 +1,8 @@
 import 'dart:math';
 
-import 'package:contri_app/api/functions/friends_functions.dart';
-import 'package:contri_app/api/models/friend_model.dart';
-import 'package:contri_app/api/models/user_model.dart';
+import 'package:contri_app/sdk/functions/friends_functions.dart';
+import 'package:contri_app/sdk/models/friend_model/friend_model.dart';
+import 'package:contri_app/sdk/models/user_model/user_model.dart';
 import 'package:contri_app/global/global_helpers.dart';
 import 'package:contri_app/global/storage_constants.dart';
 import 'package:contri_app/ui/components/addExpTextFields.dart';
@@ -127,8 +127,8 @@ class AddExpMainBody extends StatelessWidget {
         onSaveTap: () {
           if (!_formKey.currentState.validate())
             return;
-          else if (_payeeUser ==
-              kAddFriendId) // This ensures that expense is not added against a NULL user
+          else if (_payeeUser == kAddFriendId)
+          // This ensures that expense is not added against a NULL user
           {
             context.showSnackBar('Oops!! No friend selected');
             return;

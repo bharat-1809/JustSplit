@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:contri_app/api/models/comment_model.dart';
+import 'package:contri_app/sdk/models/comment_model/comment_model.dart';
 import 'package:contri_app/global/global_helpers.dart';
 
 class CommentFunctions {
   static final _firestore = Firestore.instance;
 
-  /// Creates a new comment. No need to provide [id] parameter
+  /// Creates a new [Comment]. No need to provide [id] parameter
   static Future<void> createComment(Comment comment) async {
     final _docId = _firestore
         .collection('users')
@@ -27,7 +27,7 @@ class CommentFunctions {
         );
   }
 
-  /// Get all comments for the current user
+  /// Get all [Comment]s for the current [User]
   static Future<List<Comment>> getComments() async {
     final _queryList = await _firestore
         .collection('users')
@@ -44,7 +44,7 @@ class CommentFunctions {
     return _comments;
   }
 
-  /// Delete the comment with given commentId
+  /// Delete the [Comment] with given commentId
   static Future<void> deleteComment(String commentId) async {
     await _firestore
         .collection('users')

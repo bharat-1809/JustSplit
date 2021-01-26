@@ -189,10 +189,11 @@ class GroupForm extends StatelessWidget {
                 onTap: () {
                   Feedback.forTap(context);
                   showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (context) => AvatarPicker(
-                          pictureUrlController: photoUrlController));
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (context) =>
+                        AvatarPicker(pictureUrlController: photoUrlController),
+                  );
                 },
                 child: CircleAvatar(
                   backgroundColor: Theme.of(context).scaffoldBackgroundColor,

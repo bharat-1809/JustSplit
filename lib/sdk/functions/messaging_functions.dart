@@ -9,6 +9,7 @@ class NotificationHandler {
   static final _fcm = FirebaseMessaging();
   static final _firestore = Firestore.instance;
 
+  /// upload the [deviceToken] for FCM
   static Future<String> uploadDeviceToken({String userId}) async {
     final _token = await _fcm.getToken();
     await _firestore.collection('users').document(userId).setData(
@@ -22,6 +23,7 @@ class NotificationHandler {
     return _token;
   }
 
+  /// Clear the device token when the [User] is logged out or turned off their notifications
   static Future<void> clearDeviceToken({String userId}) async {
     await _firestore.collection('users').document(userId).setData(
       {
@@ -33,6 +35,7 @@ class NotificationHandler {
     logger.v("Device Token Cleared");
   }
 
+  /// Configure the app for FCM notifications
   void configureFcm(BuildContext context) {
     void _showToast(String msg) {
       Fluttertoast.showToast(
@@ -60,7 +63,7 @@ class NotificationHandler {
       },
       onResume: (message) async {
         logger.v("Resuming App");
-
+        
         _showToast("Notification Recieved!\nRefresh, to see the change");
       },
     );

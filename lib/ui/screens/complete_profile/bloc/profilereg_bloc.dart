@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:contri_app/api/functions/messaging_functions.dart';
-import 'package:contri_app/api/functions/user_functions.dart';
-import 'package:contri_app/api/models/user_model.dart';
+import 'package:contri_app/sdk/functions/messaging_functions.dart';
+import 'package:contri_app/sdk/functions/user_functions.dart';
+import 'package:contri_app/sdk/models/user_model/user_model.dart';
 import 'package:contri_app/global/global_helpers.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -35,7 +35,7 @@ class ProfileregBloc extends Bloc<ProfileregEvent, ProfileregState> {
         );
 
         await UserFunctions.createUser(_user);
-        await initializeApi;
+        await initializeSdk;
         await initializeComments;
         await NotificationHandler.uploadDeviceToken(userId: globalUser.id);
 

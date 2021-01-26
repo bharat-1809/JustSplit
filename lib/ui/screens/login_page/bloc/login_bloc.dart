@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:contri_app/api/functions/messaging_functions.dart';
-import 'package:contri_app/api/models/user_model.dart';
+import 'package:contri_app/sdk/functions/messaging_functions.dart';
+import 'package:contri_app/sdk/models/user_model/user_model.dart';
 import 'package:contri_app/auth/functions/signIn.dart';
 import 'package:contri_app/global/global_helpers.dart';
 import 'package:contri_app/global/logger.dart';
@@ -39,10 +39,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         final _currentUser = await FirebaseAuth.instance.currentUser();
 
         if (_currentUser.isEmailVerified) {
-          logger.i("Initializing API");
+          logger.i("Initializing sdk");
 
-          await initializeApi;
-          logger.i("API Initialized");
+          await initializeSdk;
+          logger.i("sdk Initialized");
           logger.i("Checking whether profile is complete");
 
           if (globalUser.registrationStatus !=
@@ -100,8 +100,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         } else {
           logger.i("All Checks Passed");
 
-          logger.i("Initializing API");
-          await initializeApi;
+          logger.i("Initializing sdk");
+          await initializeSdk;
 
           final _prefs = await SharedPreferences.getInstance();
           final _notificationStatus = _prefs.getBool('showNotifications');

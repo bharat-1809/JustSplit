@@ -72,6 +72,7 @@ class _ProfilePageBodyState extends State<ProfilePageBody>
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
+
     _currencyData = await getCurrencyData(context);
   }
 
