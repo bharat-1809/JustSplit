@@ -41,7 +41,7 @@ class DetailexpBloc extends Bloc<DetailexpEvent, DetailexpState> {
               .where((element) => element.groupId == event.argObject.group.id)
               .toList();
           _expenses.sort((a, b) =>
-              DateTime.parse(a.date).compareTo(DateTime.parse(b.date)),);
+              DateTime.parse(a.date).compareTo(DateTime.parse(b.date)));
 
           final _revList = _expenses.reversed.toList();
 
@@ -94,7 +94,7 @@ class DetailexpBloc extends Bloc<DetailexpEvent, DetailexpState> {
               )
               .toList();
           _expenses.sort((a, b) =>
-              DateTime.parse(a.date).compareTo(DateTime.parse(b.date)),);
+              DateTime.parse(a.date).compareTo(DateTime.parse(b.date)));
           final _revList = _expenses.reversed.toList();
           for (var _exp in _revList) {
             _netBalance += _exp.owedShare;
@@ -136,7 +136,7 @@ class DetailexpBloc extends Bloc<DetailexpEvent, DetailexpState> {
                         photoUrl: _exp.pictureUrl ?? "${expenseAvatars[0]}",
                         argObject: ScreenArguments(expense: _exp),
                         subTitle:
-                            "By ${event.argObject.friend.friend.firstName}",),
+                            "By ${event.argObject.friend.friend.firstName}"),
                   );
                 }
               }

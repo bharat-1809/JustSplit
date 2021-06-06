@@ -26,16 +26,16 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
     try {
       if (event is FriendsPageRequested) {
         List<CustomTile> _friendsList = [];
+        List<CustomTile> _settledFriendsList = [];
 
         for (var _friend in getCurrentFriends) {
           double _groupBalance = 0.0;
           double _nonGroupBalance = 0.0;
           // For non-group expenses
-          final _nonGroupExpenses = getCurrentExpenses
-              .where((element) => element.groupId == null)
-              .toList();
-          final _friendExpenses = _nonGroupExpenses
-              .where((element) => element.to == _friend.friend.id);
+          final _nonGroupExpenses =
+              getCurrentExpenses.where((element) => element.groupId == null).toList();
+          final _friendExpenses =
+              _nonGroupExpenses.where((element) => element.to == _friend.friend.id);
           double _balance = 0.0;
           for (var _expense in _friendExpenses) {
             _balance += _expense.owedShare;
@@ -44,9 +44,8 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
           _nonGroupBalance = _balance;
 
           // For group expenses
-          final _groupExps = getCurrentExpenses
-              .where((element) => element.groupId != null)
-              .toList();
+          final _groupExps =
+              getCurrentExpenses.where((element) => element.groupId != null).toList();
           for (var _exp in _groupExps) {
             if (_exp.to == _friend.id) {
               final _user = _exp.expenseUsers.firstWhere(
@@ -69,42 +68,52 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
             }
           }
 
-          if (_groupBalance == 0.0) {
-            _friendsList.add(
-              CustomTile(
-                heroTag: "${_friend.friend.id}",
-                name:
-                    "${_friend.friend.firstName + ' ' + _friend.friend.lastName}",
-                balance: _balance, // 0.0 means no expense OR settled up
-                photoUrl: _friend.friend.pictureUrl ?? "NO IMAGE",
-                argObject: ScreenArguments(friend: _friend),
-              ),
-            );
-          } else {
-            String getSubtitle({double nonGroupExp, double groupExp}) {
-              if (groupExp > 0) {
-                return nonGroupExp > 0
-                    ? "\nYou owe $currencySymbol${groupExp.abs().toStringAsFixed(2)} in group expenses\nYou owe $currencySymbol${nonGroupExp.abs().toStringAsFixed(2)} in non-group expenses"
-                    : "\nYou owe $currencySymbol${groupExp.abs().toStringAsFixed(2)} in group expenses\nYou are owed $currencySymbol${nonGroupExp.abs().toStringAsFixed(2)} in non-group expenses";
-              } else {
-                return nonGroupExp > 0
-                    ? "\nYou are owed $currencySymbol${groupExp.abs().toStringAsFixed(2)} in group expenses\nYou owe $currencySymbol${nonGroupExp.abs().toStringAsFixed(2)} in non-group expenses"
-                    : "\nYou are owed $currencySymbol${groupExp.abs().toStringAsFixed(2)} in group expenses\nYou are owed $currencySymbol${nonGroupExp.abs().toStringAsFixed(2)} in non-group expenses";
-              }
-            }
-
-            _friendsList.add(
-              CustomTile(
-                heroTag: "${_friend.friend.id}",
-                name:
-                    "${_friend.friend.firstName + ' ' + _friend.friend.lastName}",
-                balance: _balance, // 0.0 means no expense OR settled up
-                photoUrl: _friend.friend.pictureUrl ?? "NO IMAGE",
-                argObject: ScreenArguments(friend: _friend),
-                subTitle: getSubtitle(
-                  groupExp: _groupBalance,
-                  nonGroupExp: _nonGroupBalance,
+          if (_balance != 0.0) {
+            if (_groupBalance == 0.0) {
+              _friendsList.add(
+                CustomTile(
+                  heroTag: "${_friend.friend.id}",
+                  name: "${_friend.friend.firstName + ' ' + _friend.friend.lastName}",
+                  balance: _balance, // 0.0 means no expense OR settled up
+                  photoUrl: _friend.friend.pictureUrl ?? "NO IMAGE",
+                  argObject: ScreenArguments(friend: _friend),
                 ),
+              );
+            } else {
+              String getSubtitle({double nonGroupExp, double groupExp}) {
+                if (groupExp > 0) {
+                  return nonGroupExp > 0
+                      ? "\nYou owe $currencySymbol${groupExp.abs().toStringAsFixed(2)} in group expenses\nYou owe $currencySymbol${nonGroupExp.abs().toStringAsFixed(2)} in non-group expenses"
+                      : "\nYou owe $currencySymbol${groupExp.abs().toStringAsFixed(2)} in group expenses\nYou are owed $currencySymbol${nonGroupExp.abs().toStringAsFixed(2)} in non-group expenses";
+                } else {
+                  return nonGroupExp > 0
+                      ? "\nYou are owed $currencySymbol${groupExp.abs().toStringAsFixed(2)} in group expenses\nYou owe $currencySymbol${nonGroupExp.abs().toStringAsFixed(2)} in non-group expenses"
+                      : "\nYou are owed $currencySymbol${groupExp.abs().toStringAsFixed(2)} in group expenses\nYou are owed $currencySymbol${nonGroupExp.abs().toStringAsFixed(2)} in non-group expenses";
+                }
+              }
+
+              _friendsList.add(
+                CustomTile(
+                  heroTag: "${_friend.friend.id}",
+                  name: "${_friend.friend.firstName + ' ' + _friend.friend.lastName}",
+                  balance: _balance, // 0.0 means no expense OR settled up
+                  photoUrl: _friend.friend.pictureUrl ?? "NO IMAGE",
+                  argObject: ScreenArguments(friend: _friend),
+                  subTitle: getSubtitle(
+                    groupExp: _groupBalance,
+                    nonGroupExp: _nonGroupBalance,
+                  ),
+                ),
+              );
+            }
+          } else {
+            _settledFriendsList.add(
+              CustomTile(
+                heroTag: "${_friend.friend.id}",
+                name: "${_friend.friend.firstName + ' ' + _friend.friend.lastName}",
+                balance: _balance,
+                photoUrl: _friend.friend.pictureUrl ?? "NO IMAGE",
+                argObject: ScreenArguments(friend: _friend),
               ),
             );
           }
@@ -112,8 +121,9 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
 
         // Sort the friends list lexicographically
         _friendsList.sort((a, b) => a.name.compareTo(b.name));
+        _settledFriendsList.sort((a, b) => a.name.compareTo(b.name));
 
-        yield (FriendsPageLoaded(friendsList: _friendsList));
+        yield (FriendsPageLoaded(friendsList: _friendsList, settledFriendsList: _settledFriendsList));
       }
       if (event is AddNewFriend) {
         yield (FriendsPageLoading());
@@ -131,8 +141,7 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
 
         await FriendFunctions.createFriend(friend: _friend);
         await loadFriends();
-        yield (FriendsPageSuccess(
-            firstName: event.firstName, phoneNumber: event.phoneNumber));
+        yield (FriendsPageSuccess(firstName: event.firstName, phoneNumber: event.phoneNumber));
       }
     } on PlatformException catch (e) {
       yield (FriendsPageError(message: "Error: ${e.message}"));

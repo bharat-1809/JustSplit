@@ -10,7 +10,8 @@ final kInputBorderStyle = OutlineInputBorder(
   ),
 );
 
-final String kRazorpayKey = 'rzp_test_XACVmXwOI28T9l';
+final String kRazorpayKey =
+    'rzp_live_nu3POGoe0oSQh3'; //'rzp_test_XACVmXwOI28T9l';
 
 final String kAppVersion = "v1.0.1+110";
 

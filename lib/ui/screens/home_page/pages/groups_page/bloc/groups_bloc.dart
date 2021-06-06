@@ -23,11 +23,12 @@ class GroupsBloc extends Bloc<GroupsEvent, GroupsState> {
     if (event is GroupsRequested) {
       try {
         List<CustomTile> _groupsList = [];
+        List<CustomTile> _settledGroupsList = [];
         double _netBalance = 0.0;
+
         for (var _group in getCurrentGroups) {
           _netBalance = 0.0;
-          final _expenses = getCurrentExpenses
-              .where((element) => element.groupId == _group.id);
+          final _expenses = getCurrentExpenses.where((element) => element.groupId == _group.id);
           if (_expenses.length > 0) {
             for (var _expense in _expenses) {
               final _expenseUser = _expense.expenseUsers.firstWhere(
@@ -41,18 +42,36 @@ class GroupsBloc extends Bloc<GroupsEvent, GroupsState> {
           for (var _user in _group.members) {
             _members += "${_user.firstName}, ";
           }
-          _groupsList.add(
-            CustomTile(
-              heroTag: "${_group.id.toString()}",
-              name: _group.name,
-              balance: _netBalance,
-              photoUrl: _group.pictureUrl ?? "${userAvatars[0]}",
-              argObject: ScreenArguments(group: _group),
-              subTitle: _members,
-            ),
-          );
+
+          if (_netBalance != 0.0) {
+            _groupsList.add(
+              CustomTile(
+                heroTag: "${_group.id.toString()}",
+                name: _group.name,
+                balance: _netBalance,
+                photoUrl: _group.pictureUrl ?? "${userAvatars[0]}",
+                argObject: ScreenArguments(group: _group),
+                subTitle: _members,
+              ),
+            );
+          } else {
+            _settledGroupsList.add(
+              CustomTile(
+                heroTag: "${_group.id.toString()}",
+                name: _group.name,
+                balance: _netBalance,
+                photoUrl: _group.pictureUrl ?? "${userAvatars[0]}",
+                argObject: ScreenArguments(group: _group),
+                subTitle: _members,
+              ),
+            );
+          }
         }
-        yield (GroupsLoaded(groupsList: _groupsList));
+
+        _groupsList.sort((a, b) => a.name.compareTo(b.name));
+        _settledGroupsList.sort((a, b) => a.name.compareTo(b.name));
+
+        yield (GroupsLoaded(groupsList: _groupsList, settledGroupsList: _settledGroupsList));
       } on PlatformException catch (e) {
         yield (GroupsFailure(message: "Error: ${e.message}"));
       } on TimeoutException catch (e) {

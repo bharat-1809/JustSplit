@@ -8,6 +8,7 @@ import 'package:contri_app/ui/constants.dart';
 import 'package:contri_app/ui/global/utils.dart';
 import 'package:contri_app/ui/screens/detailed_expense_page/detail_expense_page.dart';
 import 'package:contri_app/ui/screens/home_page/pages/friends_page/bloc/friends_bloc.dart';
+import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,8 +68,7 @@ class FriendsMainBody extends StatelessWidget {
               controller: _refreshController,
               onRefresh: () async {
                 await initializeSdk;
-                BlocProvider.of<FriendsBloc>(context)
-                    .add(FriendsPageRequested());
+                BlocProvider.of<FriendsBloc>(context).add(FriendsPageRequested());
                 _refreshController.refreshCompleted();
               },
               child: Container(
@@ -81,28 +81,64 @@ class FriendsMainBody extends StatelessWidget {
                           ? Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
-                              children: state.friendsList
-                                  .map(
-                                    (item) => Padding(
-                                      padding: EdgeInsets.only(bottom: 15),
-                                      child: FlatButton(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: kBorderRadius),
-                                        color: Theme.of(context).cardColor,
-                                        padding: EdgeInsets.all(0.0),
-                                        onPressed: () {
-                                          Navigator.of(context).pushNamed(
-                                            DetailExpPage.id,
-                                            arguments: ScreenArguments(
-                                              friend: item.argObject.friend,
-                                            ),
-                                          );
-                                        },
-                                        child: item,
-                                      ),
+                              children: [
+                                for (var tile in state.friendsList)
+                                  Padding(
+                                    padding: EdgeInsets.only(bottom: 15),
+                                    child: FlatButton(
+                                      shape: RoundedRectangleBorder(borderRadius: kBorderRadius),
+                                      color: Theme.of(context).cardColor,
+                                      padding: EdgeInsets.all(0.0),
+                                      onPressed: () {
+                                        Navigator.of(context).pushNamed(
+                                          DetailExpPage.id,
+                                          arguments: ScreenArguments(
+                                            friend: tile.argObject.friend,
+                                          ),
+                                        );
+                                      },
+                                      child: tile,
                                     ),
-                                  )
-                                  .toList(),
+                                  ),
+                                const SizedBox(height: 5.0),
+                                ExpandablePanel(
+                                  header: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
+                                    child: Text('Settled Friends', style: Theme.of(context).textTheme.bodyText1,),
+                                  ),
+                                  expanded: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      for (var tile in state.settledFriendsList)
+                                        Padding(
+                                          padding: EdgeInsets.only(bottom: 15),
+                                          child: FlatButton(
+                                            shape:
+                                                RoundedRectangleBorder(borderRadius: kBorderRadius),
+                                            color: Theme.of(context).cardColor,
+                                            padding: EdgeInsets.all(0.0),
+                                            onPressed: () {
+                                              Navigator.of(context).pushNamed(
+                                                DetailExpPage.id,
+                                                arguments: ScreenArguments(
+                                                  friend: tile.argObject.friend,
+                                                ),
+                                              );
+                                            },
+                                            child: tile,
+                                          ),
+                                        ),
+                                    ],
+                                  ),
+                                  theme: ExpandableThemeData(
+                                    headerAlignment: ExpandablePanelHeaderAlignment.center,
+                                    hasIcon: true,
+                                    useInkWell: false,
+                                    iconColor: Theme.of(context).primaryIconTheme.color,
+                                  ),
+                                ),
+                              ],
                             )
                           : Column(
                               mainAxisAlignment: MainAxisAlignment.center,

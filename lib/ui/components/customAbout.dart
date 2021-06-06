@@ -104,7 +104,7 @@ void showCustomAboutDialog({
 /// [showLicensePage].
 ///
 /// The licenses shown on the [LicensePage] are those returned by the
-/// [LicenseRegistry] API, which can be used to add more licenses to the list.
+/// [LicenseRegistry] sdk, which can be used to add more licenses to the list.
 void showLicensePage({
   @required BuildContext context,
   String applicationName,

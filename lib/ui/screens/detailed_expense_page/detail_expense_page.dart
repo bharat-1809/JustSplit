@@ -27,7 +27,7 @@ class DetailExpPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => DetailexpBloc()
         ..add(DetailExpPageRequested(
-            argObject: args, isGroupExpDetail: args.group != null),),
+            argObject: args, isGroupExpDetail: args.group != null)),
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () {

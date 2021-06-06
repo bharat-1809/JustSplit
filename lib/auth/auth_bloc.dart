@@ -44,9 +44,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             } else {
               logger.i("All Checks Completed");
 
-              logger.i("Initializing SDK");
+              logger.i("Initializing Sdk");
               await initializeSdk;
-              logger.i("SDK Initialized");
+              logger.i("Sdk Initialized");
 
               final _prefs = await SharedPreferences.getInstance();
               final _notificationStatus = _prefs.getBool('showNotifications');
