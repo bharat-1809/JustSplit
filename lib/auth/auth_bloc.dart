@@ -44,9 +44,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             } else {
               logger.i("All Checks Completed");
 
-              logger.i("Initializing SDK");
-              await initializeSdk;
-              logger.i("SDK Initialized");
+              logger.i("Initializing sdk");
+              await initializesdk;
+              logger.i("sdk Initialized");
 
               final _prefs = await SharedPreferences.getInstance();
               final _notificationStatus = _prefs.getBool('showNotifications');
@@ -74,7 +74,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await FirebaseAuth.instance.signOut();
         await GoogleSignIn().signOut();
 
-        await disposeSdk;
+        await disposesdk;
         yield (AuthUnAuthenticated(justLoggedOut: true));
       }
     } on PlatformException catch (e) {

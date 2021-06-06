@@ -78,12 +78,10 @@ class AddexpIntermediateBody extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => NamedropdownBloc()
-            ..add(
-                NameDropdownRequested(initialNameDropdownValue: args ?? null)),
+            ..add(NameDropdownRequested(initialNameDropdownValue: args ?? null)),
         ),
         BlocProvider(
-          create: (context) =>
-              SplitdropdownBloc()..add(SplitDropdownRequested()),
+          create: (context) => SplitdropdownBloc()..add(SplitDropdownRequested()),
         ),
         BlocProvider(
           create: (context) => DateBloc(),
@@ -115,6 +113,50 @@ class AddExpMainBody extends StatelessWidget {
   String _splitType;
   bool _isGroupExpense = false;
   int avatarIndex;
+
+  void _onAddFriendPressed({
+    @required BuildContext context,
+    @required BuildContext oldContext,
+  }) async {
+    if (!_addNewFriendFormKey.currentState.validate()) return;
+    showProgress(context);
+
+    String newFriendId;
+    final _friend = Friend(
+      friend: User(
+        firstName: _newFriendFirstNameController.text,
+        lastName: _newFriendLastNameController.text ?? "",
+        phoneNumber: _newFriendPhoneNumberController.text,
+        defaultCurrency: globalUser.defaultCurrency,
+        pictureUrl: userAvatars[Random().nextInt(userAvatars.length)],
+      ),
+    );
+
+    newFriendId = await FriendFunctions.createFriend(friend: _friend);
+    await loadFriends();
+
+    Navigator.of(context).pop(); // for popping progress indicator
+    Navigator.of(context).pop(); // for popping dialog box
+
+    inviteFriend(
+      context: context,
+      phoneNumber: _newFriendPhoneNumberController.text,
+      firstName: _newFriendFirstNameController.text,
+    );
+
+    BlocProvider.of<NamedropdownBloc>(oldContext).add(
+      ChangeNameDropdown(
+        newValue: newFriendId,
+        dropdownList: [
+          UserTile(
+            name: '${_newFriendFirstNameController.text + " " + _newFriendLastNameController.text}',
+            id: newFriendId,
+            photoUrl: userAvatars[Random().nextInt(userAvatars.length)],
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -168,8 +210,7 @@ class AddExpMainBody extends StatelessWidget {
               }
             },
             child: Container(
-              margin: EdgeInsets.symmetric(
-                  horizontal: screenWidth * 0.055611111), // 20
+              margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.055611111), // 20
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -184,8 +225,7 @@ class AddExpMainBody extends StatelessWidget {
                     ),
                     SizedBox(height: screenHeight * 0.027795426), // 25
                     Container(
-                      margin: EdgeInsets.only(
-                          left: screenWidth * 0.017305556), // 10
+                      margin: EdgeInsets.only(left: screenWidth * 0.017305556), // 10
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -195,12 +235,8 @@ class AddExpMainBody extends StatelessWidget {
                             children: [
                               Text(
                                 "With you and ",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1
-                                    .copyWith(
-                                      fontSize:
-                                          screenHeight * 0.016677255, // 15
+                                style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                      fontSize: screenHeight * 0.016677255, // 15
                                     ),
                               ),
                               SizedBox(width: screenWidth * 0.036458333), // 15
@@ -209,74 +245,16 @@ class AddExpMainBody extends StatelessWidget {
                                   if (state is NameDropdownChangeFailure) {
                                     context.showSnackBar(state.message);
                                   } else if (state is AddingNewFriend) {
-                                    String newFriendId;
                                     showDialog(
                                       context: context,
-                                      builder: (context) => AddNewFriendDialog(
-                                        firstNameController:
-                                            _newFriendFirstNameController,
-                                        lastNameController:
-                                            _newFriendLastNameController,
-                                        phoneNumberController:
-                                            _newFriendPhoneNumberController,
+                                      builder: (newContext) => AddNewFriendDialog(
+                                        firstNameController: _newFriendFirstNameController,
+                                        lastNameController: _newFriendLastNameController,
+                                        phoneNumberController: _newFriendPhoneNumberController,
                                         formKey: _addNewFriendFormKey,
-                                        onPressed: () async {
-                                          if (!_addNewFriendFormKey.currentState
-                                              .validate()) return;
-                                          showProgress(context);
-                                          final _friend = Friend(
-                                            friend: User(
-                                              firstName:
-                                                  _newFriendFirstNameController
-                                                      .text,
-                                              lastName:
-                                                  _newFriendLastNameController
-                                                          .text ??
-                                                      "",
-                                              phoneNumber:
-                                                  _newFriendPhoneNumberController
-                                                      .text,
-                                              defaultCurrency:
-                                                  globalUser.defaultCurrency,
-                                              pictureUrl: userAvatars[Random()
-                                                  .nextInt(userAvatars.length)],
-                                            ),
-                                          );
-                                          newFriendId = await FriendFunctions
-                                              .createFriend(friend: _friend);
-                                          await loadFriends();
-                                          Navigator.of(context)
-                                              .pop(); // for popping progress indicator
-                                          Navigator.of(context)
-                                              .pop(); // for popping dialog box
-
-                                          inviteFriend(
-                                            context: context,
-                                            phoneNumber:
-                                                _newFriendPhoneNumberController
-                                                    .text,
-                                            firstName:
-                                                _newFriendFirstNameController
-                                                    .text,
-                                          );
-
-                                          BlocProvider.of<NamedropdownBloc>(
-                                                  context)
-                                              .add(
-                                            ChangeNameDropdown(
-                                              newValue: newFriendId,
-                                              dropdownList: [
-                                                UserTile(
-                                                  name:
-                                                      '${_newFriendFirstNameController.text + " " + _newFriendLastNameController.text}',
-                                                  id: newFriendId,
-                                                  photoUrl: userAvatars[Random()
-                                                      .nextInt(
-                                                          userAvatars.length)],
-                                                ),
-                                              ],
-                                            ),
-                                          );
+                                        onPressed: () {
+                                          _onAddFriendPressed(
+                                              context: newContext, oldContext: context);
                                         },
                                       ),
                                     );
@@ -286,22 +264,17 @@ class AddExpMainBody extends StatelessWidget {
                                     for (var group in getCurrentGroups) {
                                       if (state.value == group.id) {
                                         _isGroupExpense = true;
-                                        BlocProvider.of<SplitdropdownBloc>(
-                                                context)
-                                            .add(
-                                          SplitDropdownRequested(
-                                              isGroupExpense: true),
+                                        BlocProvider.of<SplitdropdownBloc>(context).add(
+                                          SplitDropdownRequested(isGroupExpense: true),
                                         );
-                                        BlocProvider.of<GroupnameBloc>(context)
-                                            .add(
+                                        BlocProvider.of<GroupnameBloc>(context).add(
                                           UpdateGroupName(newName: group.name),
                                         );
                                       }
                                     }
 
                                     if (!_isGroupExpense)
-                                      BlocProvider.of<GroupnameBloc>(context)
-                                          .add(
+                                      BlocProvider.of<GroupnameBloc>(context).add(
                                         UpdateGroupName(newName: "NO GROUP"),
                                       );
                                   }
@@ -312,22 +285,16 @@ class AddExpMainBody extends StatelessWidget {
                                       underline: Container(),
                                       value: state.value,
                                       items: state.dropdownList
-                                          .map<DropdownMenuItem>(
-                                              (item) => DropdownMenuItem(
-                                                    value: item.id,
-                                                    child: item,
-                                                  ))
+                                          .map<DropdownMenuItem>((item) => DropdownMenuItem(
+                                                value: item.id,
+                                                child: item,
+                                              ))
                                           .toList(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1
-                                          .copyWith(
-                                            fontSize: screenHeight *
-                                                0.016677255, // 15
+                                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                            fontSize: screenHeight * 0.016677255, // 15
                                           ),
                                       onChanged: (newValue) {
-                                        BlocProvider.of<NamedropdownBloc>(
-                                                context)
+                                        BlocProvider.of<NamedropdownBloc>(context)
                                             .add(ChangeNameDropdown(
                                           newValue: newValue,
                                           dropdownList: state.dropdownList,
@@ -359,12 +326,8 @@ class AddExpMainBody extends StatelessWidget {
                                       value: item,
                                       child: Text(
                                         item,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1
-                                            .copyWith(
-                                              fontSize:
-                                                  screenHeight * 0.015565438,
+                                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                              fontSize: screenHeight * 0.015565438,
                                             ),
                                       ),
                                     ),
@@ -372,8 +335,7 @@ class AddExpMainBody extends StatelessWidget {
                                   .toList(),
                               underline: Container(),
                               onChanged: (value) {
-                                BlocProvider.of<SplitdropdownBloc>(context)
-                                    .add(ChangeSplitDropdown(
+                                BlocProvider.of<SplitdropdownBloc>(context).add(ChangeSplitDropdown(
                                   newValue: value,
                                   splitList: state.splitList,
                                 ));
@@ -383,16 +345,10 @@ class AddExpMainBody extends StatelessWidget {
                           SizedBox(height: screenHeight * 0.027795426), // 25
                           Text(
                             "COMMENTS: ",
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline1
-                                .copyWith(
+                            style: Theme.of(context).textTheme.headline1.copyWith(
                                   fontSize: screenHeight * 0.033354511 * 0.5,
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .headline1
-                                      .color
-                                      .withOpacity(0.75),
+                                  color:
+                                      Theme.of(context).textTheme.headline1.color.withOpacity(0.75),
                                   fontWeight: FontWeight.normal,
                                 ),
                           ),
@@ -403,8 +359,7 @@ class AddExpMainBody extends StatelessWidget {
                             },
                             builder: (context, state) {
                               return Container(
-                                margin: EdgeInsets.only(
-                                    left: screenWidth * 0.036458333), // 15
+                                margin: EdgeInsets.only(left: screenWidth * 0.036458333), // 15
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -412,17 +367,11 @@ class AddExpMainBody extends StatelessWidget {
                                       .map<Padding>(
                                         (item) => Padding(
                                           padding: EdgeInsets.symmetric(
-                                              vertical:
-                                                  (screenHeight * 0.033354511) /
-                                                      5),
+                                              vertical: (screenHeight * 0.033354511) / 5),
                                           child: Text(
                                             "# $item",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyText1
-                                                .copyWith(
-                                                  fontSize: screenHeight *
-                                                      0.015677255,
+                                            style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                                  fontSize: screenHeight * 0.015677255,
                                                 ),
                                           ),
                                         ),
@@ -528,9 +477,7 @@ Widget _buildBottomBar(BuildContext context) {
                       data: Theme.of(context).copyWith(
                           colorScheme: Theme.of(context).colorScheme.copyWith(
                                 primary: Theme.of(context).primaryColor,
-                                primaryVariant: Theme.of(context)
-                                    .primaryColor
-                                    .withOpacity(0.7),
+                                primaryVariant: Theme.of(context).primaryColor.withOpacity(0.7),
                               )),
                       child: child,
                     ),

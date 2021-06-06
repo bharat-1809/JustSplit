@@ -11,10 +11,14 @@ class FriendsInitial extends FriendsState {}
 
 class FriendsPageLoaded extends FriendsState {
   final List<CustomTile> friendsList;
-  FriendsPageLoaded({@required this.friendsList}) : assert(friendsList != null);
+  final List<CustomTile> settledFriendsList;
+  FriendsPageLoaded({
+    @required this.friendsList,
+    @required this.settledFriendsList,
+  }) : assert(friendsList != null, settledFriendsList != null);
 
   @override
-  List<Object> get props => [friendsList];
+  List<Object> get props => [friendsList, settledFriendsList];
 }
 
 class FriendsPageError extends FriendsState {

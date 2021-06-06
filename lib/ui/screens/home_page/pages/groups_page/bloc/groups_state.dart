@@ -11,10 +11,14 @@ class GroupsInitial extends GroupsState {}
 
 class GroupsLoaded extends GroupsState {
   final List<CustomTile> groupsList;
-  GroupsLoaded({@required this.groupsList}) : assert(groupsList != null);
+  final List<CustomTile> settledGroupsList;
+  GroupsLoaded({
+    @required this.groupsList,
+    @required this.settledGroupsList,
+  }) : assert(groupsList != null, settledGroupsList != null);
 
   @override
-  List<Object> get props => [groupsList];
+  List<Object> get props => [groupsList, settledGroupsList];
 }
 
 class GroupsFailure extends GroupsState {

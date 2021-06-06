@@ -10,7 +10,7 @@ import 'package:fluttercontactpicker/fluttercontactpicker.dart';
 import 'package:contri_app/extensions/snackBar.dart';
 
 class AddNewFriendDialog extends StatefulWidget {
-  final Function onPressed;
+  final void Function() onPressed;
   final GlobalKey<FormState> formKey;
   final TextEditingController firstNameController;
   final TextEditingController lastNameController;
