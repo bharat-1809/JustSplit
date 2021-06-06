@@ -2,8 +2,6 @@ import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 admin.initializeApp();
 
-// TODO Update to the latest version of node in package.json
-
 const db = admin.firestore();
 const fcm = admin.messaging();
 
