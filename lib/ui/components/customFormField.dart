@@ -15,7 +15,7 @@ class CustomTextFormField extends StatelessWidget {
     bool obscureText,
     bool enabled,
     Widget suffix,
-    TextCapitalization textCsdktalization,
+    TextCapitalization textCapitalization,
     List<TextInputFormatter> inputFormatters,
     @required TextInputAction textInputAction,
     @required String Function(String) validator,
@@ -31,7 +31,7 @@ class CustomTextFormField extends StatelessWidget {
         _validator = validator,
         _maxLines = maxLines,
         _suffix = suffix,
-        _textCsdktalization = textCsdktalization,
+        _textCapitalization = textCapitalization,
         _inputFormatters = inputFormatters,
         _enabled = enabled;
 
@@ -48,7 +48,7 @@ class CustomTextFormField extends StatelessWidget {
   final FocusNode _currentNode;
   final FocusNode _nextNode;
   final List<TextInputFormatter> _inputFormatters;
-  final TextCapitalization _textCsdktalization;
+  final TextCapitalization _textCapitalization;
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +69,7 @@ class CustomTextFormField extends StatelessWidget {
         keyboardType: _keyboardType,
         obscureText: _obscureText ?? false,
         validator: _validator,
-        textCapitalization: _textCsdktalization ?? TextCapitalization.none,
+        textCapitalization: _textCapitalization ?? TextCapitalization.none,
         textAlignVertical: TextAlignVertical.center,
         style: Theme.of(context).textTheme.caption.copyWith(
               fontSize: screenHeight * 0.015565438, // 14
