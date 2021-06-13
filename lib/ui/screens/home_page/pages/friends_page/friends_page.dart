@@ -55,7 +55,7 @@ class FriendsMainBody extends StatelessWidget {
       builder: (context, state) {
         if (state is FriendsPageLoaded) {
           return NestedScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             headerSliverBuilder: (context, innerBoxIsScrolled) => [
               CustomAppBar(
                 height: screenHeight * 0.101181703, // 100
@@ -64,7 +64,7 @@ class FriendsMainBody extends StatelessWidget {
               ),
             ],
             body: SmartRefresher(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               controller: _refreshController,
               onRefresh: () async {
                 await initializeSdk;
@@ -72,7 +72,7 @@ class FriendsMainBody extends StatelessWidget {
                 _refreshController.refreshCompleted();
               },
               child: Container(
-                padding: EdgeInsets.only(top: 15),
+                padding: const EdgeInsets.only(top: 15),
                 margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
                 child: SingleChildScrollView(
                   child: Column(
@@ -84,11 +84,11 @@ class FriendsMainBody extends StatelessWidget {
                               children: [
                                 for (var tile in state.friendsList)
                                   Padding(
-                                    padding: EdgeInsets.only(bottom: 15),
+                                    padding: const EdgeInsets.only(bottom: 15),
                                     child: FlatButton(
                                       shape: RoundedRectangleBorder(borderRadius: kBorderRadius),
                                       color: Theme.of(context).cardColor,
-                                      padding: EdgeInsets.all(0.0),
+                                      padding: const EdgeInsets.all(0.0),
                                       onPressed: () {
                                         Navigator.of(context).pushNamed(
                                           DetailExpPage.id,
@@ -116,12 +116,12 @@ class FriendsMainBody extends StatelessWidget {
                                     children: [
                                       for (var tile in state.settledFriendsList)
                                         Padding(
-                                          padding: EdgeInsets.only(bottom: 15),
+                                          padding: const EdgeInsets.only(bottom: 15),
                                           child: FlatButton(
                                             shape:
                                                 RoundedRectangleBorder(borderRadius: kBorderRadius),
                                             color: Theme.of(context).cardColor,
-                                            padding: EdgeInsets.all(0.0),
+                                            padding: const EdgeInsets.all(0.0),
                                             onPressed: () {
                                               Navigator.of(context).pushNamed(
                                                 DetailExpPage.id,
@@ -211,16 +211,15 @@ class NewFriendButton extends StatelessWidget {
 
               formKey.currentState.save();
               await Future.delayed(Duration(milliseconds: 50));
+              BlocProvider.of<FriendsBloc>(context).add(
+                AddNewFriend(
+                  firstName: firstNameController.text,
+                  lastName: lastNameController.text,
+                  defaultCurency: globalUser.defaultCurrency,
+                  phoneNumber: phoneNumberController.text,
+                ),
+              );
 
-              print('-------------> ${phoneNumberController.text}');
-              // BlocProvider.of<FriendsBloc>(context).add(
-              //   AddNewFriend(
-              //     firstName: firstNameController.text,
-              //     lastName: lastNameController.text,
-              //     defaultCurency: globalUser.defaultCurrency,
-              //     phoneNumber: phoneNumberController.text,
-              //   ),
-              // );
               Navigator.of(dialogContext).pop();
             },
             formKey: formKey,
