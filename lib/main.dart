@@ -24,6 +24,7 @@ import 'package:country_codes/country_codes.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -50,8 +51,7 @@ class JustSplitApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => ThemeBloc(),
       child: BlocBuilder<ThemeBloc, ThemeState>(
-        builder: (context, state) =>
-            MainAppWithTheme(context: context, state: state),
+        builder: (context, state) => MainAppWithTheme(context: context, state: state),
       ),
     );
   }
@@ -74,10 +74,15 @@ class MainAppWithTheme extends StatefulWidget {
 class _MainAppWithThemeState extends State<MainAppWithTheme> {
   final FirebaseAnalytics _analytics = FirebaseAnalytics();
 
+  int getSystemTheme() {
+    final _sysBrightness = SchedulerBinding.instance.window.platformBrightness;
+    return _sysBrightness == Brightness.dark ? 0 : 1;
+  }
+
   /// To get preferred theme
   Future<void> loadSavedThemeData() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
-    final _appThemeIndex = _prefs.getInt('theme_id') ?? 1;
+    final _appThemeIndex = _prefs.getInt('theme_id') ?? getSystemTheme();
     final _appTheme = AppTheme.values[_appThemeIndex];
     BlocProvider.of<ThemeBloc>(context).add(ThemeChanged(appTheme: _appTheme));
   }
@@ -172,8 +177,6 @@ class _MainAppWithThemeState extends State<MainAppWithTheme> {
             else
               return SafeArea(
                 child: Scaffold(
-                  //? Its hard coded, to fix the jank on transition from splash to loading screen
-                  backgroundColor: Colors.white,
                   body: Container(
                     width: screenWidth,
                     child: Column(
