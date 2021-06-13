@@ -41,7 +41,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         if (_currentUser.isEmailVerified) {
           logger.i("Initializing sdk");
 
-          await initializesdk;
+          await initializeSdk;
           logger.i("sdk Initialized");
           logger.i("Checking whether profile is complete");
 
@@ -101,7 +101,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           logger.i("All Checks Passed");
 
           logger.i("Initializing sdk");
-          await initializesdk;
+          await initializeSdk;
 
           final _prefs = await SharedPreferences.getInstance();
           final _notificationStatus = _prefs.getBool('showNotifications');

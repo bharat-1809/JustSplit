@@ -35,7 +35,7 @@ class ProfileregBloc extends Bloc<ProfileregEvent, ProfileregState> {
         );
 
         await UserFunctions.createUser(_user);
-        await initializesdk;
+        await initializeSdk;
         await initializeComments;
         await NotificationHandler.uploadDeviceToken(userId: globalUser.id);
 

@@ -15,7 +15,7 @@ class CustomTextFormField extends StatelessWidget {
     bool obscureText,
     bool enabled,
     Widget suffix,
-    TextCapitalization textCsdktalization,
+    TextCapitalization textCapitalization,
     List<TextInputFormatter> inputFormatters,
     @required TextInputAction textInputAction,
     @required String Function(String) validator,
@@ -31,7 +31,7 @@ class CustomTextFormField extends StatelessWidget {
         _validator = validator,
         _maxLines = maxLines,
         _suffix = suffix,
-        _textCapitalization = textCsdktalization,
+        _textCapitalization = textCapitalization,
         _inputFormatters = inputFormatters,
         _enabled = enabled;
 

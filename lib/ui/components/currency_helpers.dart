@@ -111,7 +111,7 @@ class _CurrencyFormFieldState extends State<CurrencyFormField> {
       maxLines: 1,
       currentNode: widget.currentNode,
       nextNode: widget.nextNode,
-      textCsdktalization: TextCapitalization.characters,
+      textCapitalization: TextCapitalization.characters,
       suffix: IconButton(
         icon: Icon(Icons.arrow_drop_down),
         onPressed: () {
