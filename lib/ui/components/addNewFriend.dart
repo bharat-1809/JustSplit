@@ -1,9 +1,9 @@
 import 'package:contri_app/global/logger.dart';
 import 'package:contri_app/ui/components/customFormField.dart';
+import 'package:contri_app/ui/components/phone_number_field.dart';
 import 'package:contri_app/ui/constants.dart';
 import 'package:contri_app/ui/global/utils.dart';
 import 'package:contri_app/ui/global/validators.dart';
-import 'package:country_codes/country_codes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sms/flutter_sms.dart';
 import 'package:fluttercontactpicker/fluttercontactpicker.dart';
@@ -40,6 +40,7 @@ class _AddNewFriendDialogState extends State<AddNewFriendDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      insetPadding: const EdgeInsets.symmetric(horizontal: 30, vertical: 24),
       scrollable: true,
       actions: <Widget>[
         FlatButton(
@@ -66,7 +67,7 @@ class _AddNewFriendDialogState extends State<AddNewFriendDialog> {
         borderRadius: kBorderRadius,
       ),
       content: Container(
-        width: screenWidth * 0.85,
+        width: screenWidth,
         height: screenHeight * 0.47,
         child: Scaffold(
           backgroundColor: Theme.of(context).cardColor,
@@ -74,7 +75,6 @@ class _AddNewFriendDialogState extends State<AddNewFriendDialog> {
             builder: (context) => Form(
               key: widget.formKey,
               child: Container(
-                width: screenWidth * 0.7,
                 child: SingleChildScrollView(
                   physics: BouncingScrollPhysics(),
                   child: Column(
@@ -84,22 +84,17 @@ class _AddNewFriendDialogState extends State<AddNewFriendDialog> {
                       SizedBox(height: screenHeight * 0.026677255),
                       FlatButton(
                         onPressed: () async {
-                          bool _hasPermission =
-                              await FlutterContactPicker.hasPermission();
+                          bool _hasPermission = await FlutterContactPicker.hasPermission();
                           if (!_hasPermission) {
                             _hasPermission =
-                                await FlutterContactPicker.requestPermission(
-                                    force: true);
+                                await FlutterContactPicker.requestPermission(force: true);
                           }
                           if (_hasPermission) {
                             PhoneContact _contact =
-                                await FlutterContactPicker.pickPhoneContact(
-                                    askForPermission: true);
+                                await FlutterContactPicker.pickPhoneContact(askForPermission: true);
                             setState(() {
-                              widget.phoneNumberController.text =
-                                  _contact.phoneNumber.number;
-                              final List<String> _nameList =
-                                  _contact.fullName.split(" ");
+                              widget.phoneNumberController.text = _contact.phoneNumber.number;
+                              final List<String> _nameList = _contact.fullName.split(" ");
                               widget.firstNameController.text = _nameList[0];
                               widget.lastNameController.text =
                                   _nameList.length > 1 ? _nameList[1] : "";
@@ -149,19 +144,12 @@ class _AddNewFriendDialogState extends State<AddNewFriendDialog> {
                         validator: _validator.validateCanBeEmptyText,
                       ),
                       SizedBox(height: screenHeight * 0.024459975), // 22
-                      CustomTextFormField(
+                      PhoneNumberField(
+                        phoneController: widget.phoneNumberController,
+                        focusNode: _phoneNode,
                         textInputAction: TextInputAction.done,
-                        maxLines: 1,
-                        fieldController: widget.phoneNumberController,
-                        hintText: '(+91) Phone Number',
-                        prefixImage: 'assets/icons/auth_icons/phone.svg',
-                        keyboardType: TextInputType.phone,
-                        currentNode: _phoneNode,
-                        inputFormatters: isInternational
-                            ? []
-                            : [DialCodeFormatter(Locale('en', 'IN'))],
-                        validator: _validator.validatePhoneNumber,
-                      ),
+                        initialPhone: widget.phoneNumberController.text,
+                      )
                     ],
                   ),
                 ),
@@ -210,13 +198,12 @@ void inviteFriend(
   );
 }
 
-Future<void> sendInviteSms(
-    {@required String phoneNumber, @required String firstName}) async {
+Future<void> sendInviteSms({@required String phoneNumber, @required String firstName}) async {
   final String _message =
       "Hi $firstName! Join me on JustSplit, an expense splitting application that I use for managing my expenses. Its simple and easy to use. Download it here: https://play.google.com/store/apps/details?id=dot.studios.contri_app";
 
-  String _result = await sendSMS(message: _message, recipients: [phoneNumber])
-      .catchError((onError) {
+  String _result =
+      await sendSMS(message: _message, recipients: [phoneNumber]).catchError((onError) {
     logger.e(onError);
   });
 

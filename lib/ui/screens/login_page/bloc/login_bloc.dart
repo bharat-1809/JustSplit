@@ -39,9 +39,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         final _currentUser = await FirebaseAuth.instance.currentUser();
 
         if (_currentUser.isEmailVerified) {
-          logger.i("Initializing Sdk");
+          logger.i("Initializing sdk");
 
-          await initializeSdk;
+          await initializesdk;
           logger.i("sdk Initialized");
           logger.i("Checking whether profile is complete");
 
@@ -100,8 +100,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         } else {
           logger.i("All Checks Passed");
 
-          logger.i("Initializing Sdk");
-          await initializeSdk;
+          logger.i("Initializing sdk");
+          await initializesdk;
 
           final _prefs = await SharedPreferences.getInstance();
           final _notificationStatus = _prefs.getBool('showNotifications');

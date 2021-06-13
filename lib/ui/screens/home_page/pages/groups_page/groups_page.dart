@@ -51,7 +51,7 @@ class GroupsMainBody extends StatelessWidget {
                 physics: BouncingScrollPhysics(),
                 controller: _refreshController,
                 onRefresh: () async {
-                  await initializeSdk;
+                  await initializesdk;
                   BlocProvider.of<GroupsBloc>(context).add(GroupsRequested());
                   _refreshController.refreshCompleted();
                 },
