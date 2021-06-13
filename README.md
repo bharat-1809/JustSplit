@@ -8,7 +8,7 @@
 #### <div align="center">A product of <a href="https://dotstudios.ml">Dot.Studios LLC</a></div><br>
 
 <div align="center">
-    <img src="https://img.shields.io/badge/Version-v1.0.1+110-blue" />
+    <img src="https://img.shields.io/badge/Version-v1.1.0-blue" />
     <img src="https://api.travis-ci.com/bharat-1809/JustSplit.svg?branch=master" />
     <a href="https://github.com/bharat-1809/JustSplit/blob/956cc4c483d4f571892550b5cbe8b6df0d3d923e/LICENSE">
         <img src="https://img.shields.io/badge/License-AGPL 3.0-orange" />
@@ -64,10 +64,7 @@ Contributions of any kind are welcome! See [Contributing Guidelines](CONTRIBUTIN
 
 ### Overview
 
-- App tries to follow Clean Architecture guidelines. Logic is separated into 3 layers:
-    - `UI`
-    - `BLoC`
-    - `API`
+- App tries to follow Clean Architecture guidelines. Logic is separated from the UI. 
 - App uses [BLoC](https://bloclibrary.dev/#/coreconcepts) extensively
 - If you find something in code that looks a bit odd, it might be some useful extension method from `lib/extensions`
 
