@@ -175,7 +175,7 @@ class BottomDrawer extends StatelessWidget {
               ),
         ),
         Text(
-          "Copyright \u00A9 2020 Dot.Studios LLC",
+          "Copyright \u00A9 2021 Dot.Studios LLC",
           style: Theme.of(context).textTheme.headline2.copyWith(
                 fontSize: screenHeight * 0.013341804,
               ),

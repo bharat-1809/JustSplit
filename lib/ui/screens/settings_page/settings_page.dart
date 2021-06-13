@@ -180,7 +180,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             height: 50.0,
                           ),
                           applicationVersion: kAppVersion,
-                          applicationName: "JustSplit.",
+                          applicationName: "JustSplit",
                         );
                       },
                     ),
