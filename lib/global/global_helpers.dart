@@ -76,7 +76,7 @@ Future<void> _initializeComments() async {
   _comments = _comList;
 }
 
-Future<void> _disposeSdk() async {
+Future<void> _disposesdk() async {
   _friends = [];
   _expenses = [];
   _groups = [];
@@ -103,4 +103,4 @@ double get totalBalance => _totalBalance;
 Future<void> get initializeSdk => _initializeSdk();
 Future<void> get initializeComments => _initializeComments();
 void get reloadTotalBalance => _reloadTotalBalance();
-Future<void> get disposeSdk => _disposeSdk();
+Future<void> get disposeSdk => _disposesdk();

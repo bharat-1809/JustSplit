@@ -103,8 +103,12 @@ class FriendsMainBody extends StatelessWidget {
                                 const SizedBox(height: 5.0),
                                 ExpandablePanel(
                                   header: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
-                                    child: Text('Settled Friends', style: Theme.of(context).textTheme.bodyText1,),
+                                    padding:
+                                        const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
+                                    child: Text(
+                                      'Settled Friends',
+                                      style: Theme.of(context).textTheme.bodyText1,
+                                    ),
                                   ),
                                   expanded: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -202,16 +206,21 @@ class NewFriendButton extends StatelessWidget {
         showDialog(
           context: context,
           builder: (dialogContext) => AddNewFriendDialog(
-            onPressed: () {
+            onPressed: () async {
               if (!formKey.currentState.validate()) return;
-              BlocProvider.of<FriendsBloc>(context).add(
-                AddNewFriend(
-                  firstName: firstNameController.text,
-                  lastName: lastNameController.text,
-                  defaultCurency: globalUser.defaultCurrency,
-                  phoneNumber: phoneNumberController.text,
-                ),
-              );
+
+              formKey.currentState.save();
+              await Future.delayed(Duration(milliseconds: 50));
+
+              print('-------------> ${phoneNumberController.text}');
+              // BlocProvider.of<FriendsBloc>(context).add(
+              //   AddNewFriend(
+              //     firstName: firstNameController.text,
+              //     lastName: lastNameController.text,
+              //     defaultCurency: globalUser.defaultCurrency,
+              //     phoneNumber: phoneNumberController.text,
+              //   ),
+              // );
               Navigator.of(dialogContext).pop();
             },
             formKey: formKey,

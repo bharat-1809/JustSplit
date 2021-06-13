@@ -5,13 +5,13 @@ import 'package:contri_app/global/storage_constants.dart';
 import 'package:contri_app/ui/components/blueButton.dart';
 import 'package:contri_app/ui/components/currency_helpers.dart';
 import 'package:contri_app/ui/components/customFormField.dart';
+import 'package:contri_app/ui/components/phone_number_field.dart';
 import 'package:contri_app/ui/components/progressIndicator.dart';
 import 'package:contri_app/ui/components/selectAvatar_dialog.dart';
 import 'package:contri_app/ui/global/utils.dart';
 import 'package:contri_app/ui/global/validators.dart';
 import 'package:contri_app/ui/screens/complete_profile/bloc/profilereg_bloc.dart';
 import 'package:contri_app/ui/screens/home_page/home_page.dart';
-import 'package:country_codes/country_codes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_image/firebase_image.dart';
 import 'package:flutter/material.dart';
@@ -128,17 +128,18 @@ class _ProfileFormState extends State<ProfileForm> {
   @override
   Widget build(BuildContext context) {
     void _onSaveButtonPressed() {
-      if (!_formKey.currentState.validate() || _photoUrlController.text == null)
-        return;
-      BlocProvider.of<ProfileregBloc>(context).add(
-        ProfileRegClicked(
-          firstName: _firstNameController.text,
-          lastName: _lastNameController.text,
-          photoUrl: _photoUrlController.text,
-          phoneNumber: _phoneNumberController.text,
-          defaultCurrency: _defaultCurrencyController.text,
-        ),
-      );
+      if (!_formKey.currentState.validate() || _photoUrlController.text == null) return;
+
+      print(_phoneNumberController.text);
+      // BlocProvider.of<ProfileregBloc>(context).add(
+      //   ProfileRegClicked(
+      //     firstName: _firstNameController.text,
+      //     lastName: _lastNameController.text,
+      //     photoUrl: _photoUrlController.text,
+      //     phoneNumber: _phoneNumberController.text,
+      //     defaultCurrency: _defaultCurrencyController.text,
+      //   ),
+      // );
 
       currencySymbol = getCurrencySymbol(
         currencyData: _currencyData,
@@ -154,8 +155,7 @@ class _ProfileFormState extends State<ProfileForm> {
           Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              border:
-                  Border.all(color: Theme.of(context).primaryColor, width: 2.0),
+              border: Border.all(color: Theme.of(context).primaryColor, width: 2.0),
               boxShadow: [
                 BoxShadow(
                   color: Theme.of(context).primaryColorDark.withOpacity(0.35),
@@ -171,8 +171,7 @@ class _ProfileFormState extends State<ProfileForm> {
                 showDialog(
                   context: context,
                   barrierDismissible: false,
-                  builder: (context) =>
-                      AvatarPicker(pictureUrlController: _photoUrlController),
+                  builder: (context) => AvatarPicker(pictureUrlController: _photoUrlController),
                 );
               },
               child: CircleAvatar(
@@ -209,25 +208,20 @@ class _ProfileFormState extends State<ProfileForm> {
             validator: _validator.validateCanBeEmptyText,
           ),
           SizedBox(height: screenHeight * 0.024459975), // 22
-          CustomTextFormField(
-            currentNode: _phoneNode,
-            nextNode: _currencyNode,
-            textInputAction: TextInputAction.next,
-            maxLines: 1,
-            fieldController: _phoneNumberController,
-            hintText: 'Phone Number',
-            prefixImage: 'assets/icons/auth_icons/phone.svg',
-            keyboardType: TextInputType.phone,
-            inputFormatters:
-                isInternational ? [] : [DialCodeFormatter(Locale('en', 'IN'))],
-            validator: _validator.validatePhoneNumber,
-          ),
-          SizedBox(height: screenHeight * 0.024459975), // 22
           CurrencyFormField(
             defaultCurrencyCodeController: _defaultCurrencyController,
             currentNode: _currencyNode,
             enabled: true,
           ),
+          SizedBox(height: screenHeight * 0.024459975), // 22
+          PhoneNumberField(
+            focusNode: _phoneNode,
+            nextFocusNode: _currencyNode,
+            textInputAction: TextInputAction.done,
+            phoneController: _phoneNumberController,
+            hintText: 'Phone Number',
+          ),
+
           SizedBox(height: screenHeight * 0.042249047),
           BlueButton(
             title: "Save and Continue",
