@@ -63,8 +63,8 @@ class FriendsOptionsPopButton extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                content:
-                    "If you wish to delete this person from your friends list, you will need to delete them from your groups, or remove the groups entirely.\n\nYou can access these settings by tapping on the group settings.",
+                content: 'You cannot delete this person from your friends list, as you have a shared group with them',
+                    // Make this as the message when delete frined from group is avialble "If you wish to delete this person from your friends list, you will need to delete them from your groups, or remove the groups entirely.\n\nYou can access these settings by tapping on the group settings.",
                 proceedButtonText: "OK",
                 showCancel: false,
               ),
