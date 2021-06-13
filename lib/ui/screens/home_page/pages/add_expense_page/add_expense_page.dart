@@ -452,6 +452,7 @@ class AddExpForm extends StatelessWidget {
 Widget _buildBottomBar(BuildContext context) {
   final commentsController = TextEditingController();
   final commentsFormKey = GlobalKey<FormState>();
+
   return BottomAppBar(
     color: Theme.of(context).primaryColor,
     child: Container(

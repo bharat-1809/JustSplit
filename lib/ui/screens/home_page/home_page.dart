@@ -54,8 +54,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    _controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 250));
+    _controller = AnimationController(vsync: this, duration: Duration(milliseconds: 250));
     _controller.addStatusListener((status) {
       setState(() {});
     });
@@ -66,8 +65,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final activeColorNavBar = Theme.of(context).primaryColor;
     final inactiveColorNavBar = Theme.of(context).primaryColor.withAlpha(110);
-    final middleButtonBgColor =
-        Theme.of(context).primaryColor.withOpacity(0.85);
+    final middleButtonBgColor = Theme.of(context).primaryColor.withOpacity(0.85);
     final bgColorNavBar = Theme.of(context).cardColor;
 
     final _tabController = TabController(
@@ -102,8 +100,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => HomeBloc()
-              ..add(HomeEvent.fromIndex(args != null ? args.homeIndex : 0)),
+            create: (context) =>
+                HomeBloc()..add(HomeEvent.fromIndex(args != null ? args.homeIndex : 0)),
           ),
           BlocProvider(create: (context) => FriendsBloc()),
           BlocProvider(create: (context) => GroupsBloc()),
@@ -133,22 +131,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
+                              color: Theme.of(context).brightness == Brightness.dark
                                   ? Theme.of(context).primaryColor.withAlpha(10)
-                                  : Theme.of(context)
-                                      .primaryColorDark
-                                      .withOpacity(0.25),
+                                  : Theme.of(context).primaryColorDark.withOpacity(0.25),
                               offset: Offset(-15, 5.0),
                               blurRadius: 20.0,
                               spreadRadius: 2.0,
                             ),
                           ],
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: const BorderRadius.all(Radius.circular(20)),
                         ),
-                        transform:
-                            Matrix4.translationValues(xSlide, ySlide, 0.0)
-                              ..scale(scale),
+                        transform: Matrix4.translationValues(xSlide, ySlide, 0.0)..scale(scale),
                         child: Center(
                           child: GestureDetector(
                             behavior: HitTestBehavior.opaque,
@@ -162,21 +155,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               ignoring: !_controller.isDismissed,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(
-                                  _controller.isDismissed
-                                      ? 0.0
-                                      : _controller.value * 15.0,
+                                  _controller.isDismissed ? 0.0 : _controller.value * 15.0,
                                 ),
                                 clipBehavior: Clip.antiAlias,
                                 child: Scaffold(
                                   appBar: AppBar(
-                                    backgroundColor:
-                                        Theme.of(context).cardColor,
+                                    backgroundColor: Theme.of(context).cardColor,
                                     automaticallyImplyLeading: false,
                                     leading: IconButton(
                                       icon: Icon(
-                                        _controller.isDismissed
-                                            ? Icons.dehaze
-                                            : Icons.arrow_back,
+                                        _controller.isDismissed ? Icons.dehaze : Icons.arrow_back,
                                       ),
                                       onPressed: () async {
                                         toogleDrawer();
@@ -187,10 +175,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                         splashColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
                                         padding: EdgeInsets.symmetric(
-                                            horizontal: 0.0),
+                                          horizontal: 0.0,
+                                        ),
                                         onPressed: () {
-                                          Navigator.of(context)
-                                              .pushNamed(ProfilePage.id);
+                                          Navigator.of(context).pushNamed(ProfilePage.id);
                                         },
                                         icon: Padding(
                                           padding: const EdgeInsets.all(5.0),
@@ -207,13 +195,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                             child: Hero(
                                               tag: "profile",
                                               child: CircleAvatar(
-                                                backgroundColor:
-                                                    Colors.tealAccent,
+                                                backgroundColor: Colors.tealAccent,
                                                 child: FadeInImage(
-                                                  placeholder: AssetImage(
-                                                      'assets/icons/misc/loader.png'),
-                                                  image: FirebaseImage(
-                                                      globalUser.pictureUrl),
+                                                  placeholder:
+                                                      const AssetImage('assets/icons/misc/loader.png'),
+                                                  image: FirebaseImage(globalUser.pictureUrl),
                                                 ),
                                               ),
                                             ),
@@ -224,7 +210,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                     ],
                                   ),
                                   body: TabBarView(
-                                    physics: NeverScrollableScrollPhysics(),
+                                    physics: const NeverScrollableScrollPhysics(),
                                     controller: _tabController,
                                     children: [
                                       FriendsPage(),
@@ -349,8 +335,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       return;
     }
     if (details.velocity.pixelsPerSecond.dx.abs() >= _kMinFlingVelocity) {
-      double visualVelocity = details.velocity.pixelsPerSecond.dx /
-          MediaQuery.of(context).size.width;
+      double visualVelocity =
+          details.velocity.pixelsPerSecond.dx / MediaQuery.of(context).size.width;
 
       _controller.fling(velocity: visualVelocity);
     } else if (_controller.value < 0.5) {

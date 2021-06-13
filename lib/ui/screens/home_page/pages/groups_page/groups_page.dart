@@ -39,7 +39,7 @@ class GroupsMainBody extends StatelessWidget {
         if (state is GroupsLoaded) {
           return Scaffold(
             body: NestedScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               headerSliverBuilder: (context, innerBoxIsScrolled) => [
                 CustomAppBar(
                   height: screenHeight * 0.101181703, // 100
@@ -48,7 +48,7 @@ class GroupsMainBody extends StatelessWidget {
                 ),
               ],
               body: SmartRefresher(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 controller: _refreshController,
                 onRefresh: () async {
                   await initializeSdk;
@@ -56,7 +56,7 @@ class GroupsMainBody extends StatelessWidget {
                   _refreshController.refreshCompleted();
                 },
                 child: Container(
-                  padding: EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.only(top: 20),
                   margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
                   child: SingleChildScrollView(
                     child: Column(
@@ -68,9 +68,9 @@ class GroupsMainBody extends StatelessWidget {
                                 children: [
                                     for (var tile in state.groupsList)
                                       Padding(
-                                        padding: EdgeInsets.only(bottom: 11),
+                                        padding: const EdgeInsets.only(bottom: 11),
                                         child: FlatButton(
-                                          padding: EdgeInsets.all(0.0),
+                                          padding: const EdgeInsets.all(0.0),
                                           onPressed: () {
                                             Navigator.of(context).pushNamed(
                                               DetailExpPage.id,
@@ -85,7 +85,9 @@ class GroupsMainBody extends StatelessWidget {
                                     ExpandablePanel(
                                       header: Padding(
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 8.0, vertical: 12.0),
+                                          horizontal: 8.0,
+                                          vertical: 12.0,
+                                        ),
                                         child: Text(
                                           'Settled Groups',
                                           style: Theme.of(context).textTheme.bodyText1,
@@ -97,14 +99,15 @@ class GroupsMainBody extends StatelessWidget {
                                         children: [
                                           for (var tile in state.settledGroupsList)
                                             Padding(
-                                              padding: EdgeInsets.only(bottom: 11),
+                                              padding: const EdgeInsets.only(bottom: 11),
                                               child: FlatButton(
-                                                padding: EdgeInsets.all(0.0),
+                                                padding: const EdgeInsets.all(0.0),
                                                 onPressed: () {
                                                   Navigator.of(context).pushNamed(
                                                     DetailExpPage.id,
                                                     arguments: ScreenArguments(
-                                                        group: tile.argObject.group),
+                                                      group: tile.argObject.group,
+                                                    ),
                                                   );
                                                 },
                                                 child: tile,
