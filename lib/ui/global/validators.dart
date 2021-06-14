@@ -41,6 +41,28 @@ class Validator {
   String validatePhoneNumber(String number) {
     if (number.isEmpty)
       return "This field cannot be empty";
+    else if (number.contains(RegExp(r'[A-Za-z]-')))
+      return "Enter a valid phonenumber";
+    else if (number.length <= 10)
+      return "Enter a valid phonenumber";
+    else {
+      if (isInternational)
+        return null;
+      else {
+        final _numberRegex = RegExp(r'[0-9]');
+        final _matches = _numberRegex.allMatches(number);
+        if (_matches.length != 12)
+          return "Please enter a valid phone number";
+        else
+          return null;
+      }
+    }
+  }
+
+  // Without country codes
+  String validateShortPhoneNumber(String number) {
+    if (number.isEmpty)
+      return "This field cannot be empty";
     else if (number.contains(RegExp(r'[A-Za-z]-+')))
       return "Enter a valid phonenumber";
     else if (number.length <= 10)

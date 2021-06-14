@@ -57,7 +57,6 @@ class LoginMainBody extends StatelessWidget {
           if (state is LoginSuccess) {
             NotificationHandler().configureFcm(context);
             Navigator.of(context).pop();
-            await context.showSnackBar("Login Successful");
 
             final _currencyData = await getCurrencyData(context);
             currencySymbol = getCurrencySymbol(currencyData: _currencyData);

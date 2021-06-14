@@ -73,7 +73,7 @@ class PhoneNumberField extends StatelessWidget {
           selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
         ),
         textAlignVertical: TextAlignVertical.center,
-        validator: Validator().validatePhoneNumber,
+        validator: Validator().validateShortPhoneNumber,
         isEnabled: enabled,
         cursorColor: Theme.of(context).primaryColor,
         keyboardAction: textInputAction,

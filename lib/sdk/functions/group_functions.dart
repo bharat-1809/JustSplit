@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:contri_app/sdk/functions/expenses_functions.dart';
 import 'package:contri_app/sdk/models/group_model/group_model.dart';
 import 'package:contri_app/sdk/models/user_model/user_model.dart';
 import 'package:contri_app/global/global_helpers.dart';
@@ -109,36 +110,25 @@ class GroupFunctions {
     await updateGroup(group: _group);
   }
 
-  /// Deletes a [Group] along with its [Expense]s for all the members of the group
+  /// Deletes a [Group] along with its [Expense]s for the current member
   static Future<void> deleteGroup({String id}) async {
-    final _group = await getGroupById(id: id);
-    for (var _user in _group.members) {
-      final _d = await _firestore
-          .collection('users')
-          .document(_user.id)
-          .collection('groups')
-          .getDocuments();
-
-      final _e = _d.documents.firstWhere(
-        (element) => element.documentID == id,
-        orElse: () => null,
-      );
-
-      await _e.reference.delete();
-
-      final _query = _firestore
-          .collection('users')
-          .document(_user.id)
-          .collection('expenses')
-          .where('groupId', isEqualTo: id);
-
-      await _query.getDocuments().then(
-            (_docList) => _docList.documents.forEach(
-              (document) async {
-                await document.reference.delete();
-              },
-            ),
-          );
+    final _expenses = getCurrentExpenses;
+    for (var exp in _expenses) {
+      if (exp.groupId == id) {
+        await ExpensesFunctions.deleteExpense(id: exp.id);
+      }
     }
+
+    final _d = await _firestore
+        .collection('users')
+        .document(globalUser.id)
+        .collection('groups')
+        .getDocuments();
+
+    final _e = _d.documents.firstWhere(
+      (element) => element.documentID == id,
+      orElse: () => null,
+    );
+    await _e.reference.delete();
   }
 }
