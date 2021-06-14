@@ -176,22 +176,25 @@ class _MainAppWithThemeState extends State<MainAppWithTheme> {
               return ProfileRegPage();
             else
               return SafeArea(
-                child: Scaffold(
-                  body: Container(
-                    width: screenWidth,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const SizedBox(height: 70.0),
-                        SvgPicture.asset(
-                          'assets/icons/misc/JustSplit_logo_v3-08.svg',
-                          width: screenWidth * 0.25,
-                          placeholderBuilder: (context) => Container(),
-                        ),
-                        const SizedBox(height: 75.0),
-                        const CircularProgressIndicator()
-                      ],
+                child: Theme(
+                  data: appThemeData[getSystemTheme()],
+                  child: Scaffold(
+                    body: Container(
+                      width: screenWidth,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 70.0),
+                          SvgPicture.asset(
+                            'assets/icons/misc/JustSplit_logo_v3-08.svg',
+                            width: screenWidth * 0.25,
+                            placeholderBuilder: (context) => Container(),
+                          ),
+                          const SizedBox(height: 75.0),
+                          const CircularProgressIndicator()
+                        ],
+                      ),
                     ),
                   ),
                 ),
