@@ -180,22 +180,28 @@ class _MainAppWithThemeState extends State<MainAppWithTheme> {
               return SafeArea(
                 child: Theme(
                   data: _systemTheme == 0 ? darkTheme : lightTheme,
-                  child: Scaffold(
-                    body: Container(
-                      width: screenWidth,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const SizedBox(height: 70.0),
-                          SvgPicture.asset(
-                            'assets/icons/misc/JustSplit_logo_v3-08.svg',
-                            width: screenWidth * 0.25,
-                            placeholderBuilder: (context) => Container(),
-                          ),
-                          const SizedBox(height: 75.0),
-                          const CircularProgressIndicator()
-                        ],
+                  child: Builder(
+                    builder: (context) => Scaffold(
+                      body: Container(
+                        width: screenWidth,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(height: 70.0),
+                            SvgPicture.asset(
+                              'assets/icons/misc/JustSplit_logo_v3-08.svg',
+                              width: screenWidth * 0.25,
+                              placeholderBuilder: (context) => Container(),
+                            ),
+                            const SizedBox(height: 75.0),
+                            CircularProgressIndicator(
+                              color: Theme.of(context).brightness == Brightness.light
+                                  ? Theme.of(context).primaryColor
+                                  : Theme.of(context).colorScheme.primary,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
