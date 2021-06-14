@@ -122,6 +122,7 @@ class TopDrawer extends StatelessWidget {
             await FlutterShare.share(
               title: "JustSplit",
               linkUrl: "https://play.google.com/store/apps/details?id=dot.studios.contri_app",
+              text: 'Manage your expenses hassle free. Download JustSplit now.'
             );
           },
         ),
@@ -169,7 +170,7 @@ class BottomDrawer extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Text(
-          "Made with ♡ in India",
+          "Made with ♥ in India",
           style: Theme.of(context).textTheme.headline2.copyWith(
                 fontSize: screenHeight * 0.013341804,
               ),

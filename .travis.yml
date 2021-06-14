@@ -12,9 +12,7 @@ android:
     - extra
 before_script:
   - cd ..
-  # Currently specifyng the version of flutter as latest beta release is buggy
-  # TODO: Clone the latest beta
-  - git clone -b 1.24.0-10.2.pre --depth 1 https://github.com/flutter/flutter.git
+  - git clone https://github.com/flutter/flutter.git -b beta
   - export PATH=$PATH:$PWD/flutter/bin
   - export PATH=$PATH:$PWD/flutter/bin/cache/dart-sdk/bin
   - flutter doctor

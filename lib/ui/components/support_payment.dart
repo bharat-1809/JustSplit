@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:contri_app/global/global_helpers.dart';
 import 'package:contri_app/global/logger.dart';
 import 'package:contri_app/ui/constants.dart';
@@ -6,8 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:contri_app/extensions/snackBar.dart';
 
-Map<String, dynamic> razorpayOptionsIndia(
-    {@required int amount, @required String sponserType}) {
+Map<String, dynamic> razorpayOptionsIndia({@required int amount, @required String sponserType}) {
   return {
     'key': kRazorpayKey,
     'amount': amount * 100,
@@ -46,13 +47,13 @@ void initializeRazorpayListeners(BuildContext context) {
 }
 
 void handlePaymentSuccess(PaymentSuccessResponse response) {
-  scaffoldContext.showSnackBar("SUCCESS: " + response.paymentId);
+  scaffoldContext.showSnackBar("Payment Succesfull. PaymentId: " + response.paymentId);
   logger.v("SUCCESS: " + response.paymentId);
 }
 
 void handlePaymentError(PaymentFailureResponse response) {
-  scaffoldContext.showSnackBar(
-      "ERROR: " + response.code.toString() + " - " + response.message);
+  final _jsonMessage = jsonDecode(response.message);
+  scaffoldContext.showSnackBar("ERROR: " + _jsonMessage['error']['description']);
   logger.wtf("ERROR: " + response.code.toString() + " - " + response.message);
 }
 
