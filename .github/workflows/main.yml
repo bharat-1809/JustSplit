@@ -38,11 +38,6 @@ jobs:
         with:
           java-version: '12.x'
       - uses: subosito/flutter-action@v1
-        with:
-          # Currently specifyng the version if flutter as the latest beta release (1.25) is buggy
-          # TODO: Fetch the latest beta release
-          flutter-version: '1.24.x'
-          channel: "beta"
       
       # Flutter commands
       - name: Flutter doctor
