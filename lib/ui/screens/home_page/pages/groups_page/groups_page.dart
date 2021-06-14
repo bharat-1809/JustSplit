@@ -61,7 +61,7 @@ class GroupsMainBody extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       children: <Widget>[
-                        state.groupsList.length > 0
+                        state.groupsList.length + state.settledGroupsList.length > 0
                             ? Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.center,

@@ -1,5 +1,4 @@
 import 'package:contri_app/global/global_helpers.dart';
-import 'package:contri_app/global/logger.dart';
 import 'package:contri_app/ui/components/commentsDialogBox.dart';
 import 'package:contri_app/ui/components/custom_appBar.dart';
 import 'package:contri_app/ui/components/progressIndicator.dart';
@@ -14,8 +13,6 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 /// ITS PERSONAL COMMENTS PAGE. Just The sdk was made with comment as its name.
 class NotesPage extends StatelessWidget {
   static const String id = "notes_page";
-  // final _commentController = TextEditingController();
-  // final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -30,7 +27,6 @@ class NotesPage extends StatelessWidget {
             BlocProvider.of<NotesBloc>(context).add(CommentsRequested());
           }
           if (state is NotesLoading) {
-            logger.wtf("loading Indicator");
             showProgress(context);
           }
         },

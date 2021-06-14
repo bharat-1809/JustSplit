@@ -88,10 +88,12 @@ class _MainAppWithThemeState extends State<MainAppWithTheme> {
   }
 
   Map<String, dynamic> _currencyData = {};
+  int _systemTheme = 1;
 
   @override
   void initState() {
     loadSavedThemeData().then((_) => logger.i("Got Saved Theme"));
+    _systemTheme = getSystemTheme();
     _analytics.logAppOpen().then((_) => logger.v("AnalyticsEvent: AppStarted"));
     super.initState();
   }
@@ -177,7 +179,7 @@ class _MainAppWithThemeState extends State<MainAppWithTheme> {
             else
               return SafeArea(
                 child: Theme(
-                  data: appThemeData[getSystemTheme()],
+                  data: _systemTheme == 0 ? darkTheme : lightTheme,
                   child: Scaffold(
                     body: Container(
                       width: screenWidth,

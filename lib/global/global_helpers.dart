@@ -60,8 +60,7 @@ void _reloadTotalBalance() {
     } else if (expense.groupId != null) {
       final _expenseUsers = expense.expenseUsers;
       if (_expenseUsers != null) {
-        final _expenseUser =
-            _expenseUsers.where((element) => element.userId == globalUser.id);
+        final _expenseUser = _expenseUsers.where((element) => element.userId == globalUser.id);
         _totalBalance += _expenseUser.first.netBalance;
       }
     }
@@ -95,6 +94,7 @@ String currencySymbol;
 /// Getters
 ///
 User get globalUser => _globalUser;
+set setGlobalUser(User user) => _globalUser = user;
 List<Friend> get getCurrentFriends => _friends;
 List<Expense> get getCurrentExpenses => _expenses;
 List<Group> get getCurrentGroups => _groups;

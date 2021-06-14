@@ -42,14 +42,14 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
           comment: event.comment,
           dateTime: DateTime.now(),
         );
-        await CommentFunctions.createComment(_comment);
-        await initializeComments;
+        CommentFunctions.createComment(_comment);
+        getCurrentComments.add(_comment);
         yield (NotesSuccess());
       }
       if (event is DeleteComment) {
         yield (NotesLoading());
-        await CommentFunctions.deleteComment(event.commentId);
-        await initializeComments;
+        CommentFunctions.deleteComment(event.commentId);
+        getCurrentComments.removeWhere((e) => e.id == event.commentId);
         yield (NotesSuccess());
       }
     } on PlatformException catch (e) {

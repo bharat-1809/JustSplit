@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:contri_app/global/global_helpers.dart';
 import 'package:contri_app/sdk/functions/user_functions.dart';
 import 'package:contri_app/sdk/models/user_model/user_model.dart';
-import 'package:contri_app/global/global_helpers.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -31,14 +31,17 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           yield (ProfileChangeSuccess());
         else {
           final _user = User(
+            id: globalUser.id,
+            email: globalUser.email,
+            registrationStatus: globalUser.registrationStatus,
             defaultCurrency: event.defaultCurrency,
             firstName: event.firstName,
             lastName: event.lastName,
             pictureUrl: event.pictureUrl,
             phoneNumber: event.phoneNumber,
           );
-          await UserFunctions.updateUserDetails(_user);
-          await loadCurrentUser();
+          UserFunctions.updateUserDetails(_user);
+          setGlobalUser = _user;
           yield (ProfileChangeSuccess());
         }
       }

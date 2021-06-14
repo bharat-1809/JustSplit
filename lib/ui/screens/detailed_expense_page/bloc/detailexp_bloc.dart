@@ -40,8 +40,7 @@ class DetailexpBloc extends Bloc<DetailexpEvent, DetailexpState> {
           final _expenses = getCurrentExpenses
               .where((element) => element.groupId == event.argObject.group.id)
               .toList();
-          _expenses.sort((a, b) =>
-              DateTime.parse(a.date).compareTo(DateTime.parse(b.date)));
+          _expenses.sort((a, b) => DateTime.parse(a.date).compareTo(DateTime.parse(b.date)));
 
           final _revList = _expenses.reversed.toList();
 
@@ -65,9 +64,7 @@ class DetailexpBloc extends Bloc<DetailexpEvent, DetailexpState> {
                   balance: (_expUsr.netBalance),
                   photoUrl: _exp.pictureUrl ?? "${expenseAvatars[0]}",
                   argObject: ScreenArguments(expense: _exp),
-                  subTitle: _creatorName == globalUser.firstName
-                      ? "By you"
-                      : "By $_creatorName",
+                  subTitle: _creatorName == globalUser.firstName ? "By you" : "By $_creatorName",
                 ),
               );
             }
@@ -85,16 +82,14 @@ class DetailexpBloc extends Bloc<DetailexpEvent, DetailexpState> {
           double _netBalance = 0.0;
           List<CustomTile> _widgetList = [];
           // This adds all non-group expenses
-          final _nonGroupexpenses = getCurrentExpenses
-              .where((element) => element.groupId == null)
-              .toList();
+          final _nonGroupexpenses =
+              getCurrentExpenses.where((element) => element.groupId == null).toList();
           final _expenses = _nonGroupexpenses
               .where(
                 (element) => element.to == event.argObject.friend.id,
               )
               .toList();
-          _expenses.sort((a, b) =>
-              DateTime.parse(a.date).compareTo(DateTime.parse(b.date)));
+          _expenses.sort((a, b) => DateTime.parse(a.date).compareTo(DateTime.parse(b.date)));
           final _revList = _expenses.reversed.toList();
           for (var _exp in _revList) {
             _netBalance += _exp.owedShare;
@@ -110,11 +105,8 @@ class DetailexpBloc extends Bloc<DetailexpEvent, DetailexpState> {
           }
 
           // This adds group expenses to the list
-          final _groupExp = getCurrentExpenses
-              .where((element) => element.groupId != null)
-              .toList();
-          _groupExp.sort((a, b) =>
-              DateTime.parse(a.date).compareTo(DateTime.parse(b.date)));
+          final _groupExp = getCurrentExpenses.where((element) => element.groupId != null).toList();
+          _groupExp.sort((a, b) => DateTime.parse(a.date).compareTo(DateTime.parse(b.date)));
           final _revGroupList = _groupExp.reversed.toList();
 
           for (var _exp in _revGroupList) {
@@ -135,8 +127,7 @@ class DetailexpBloc extends Bloc<DetailexpEvent, DetailexpState> {
                         balance: (_expUsr.netBalance),
                         photoUrl: _exp.pictureUrl ?? "${expenseAvatars[0]}",
                         argObject: ScreenArguments(expense: _exp),
-                        subTitle:
-                            "By ${event.argObject.friend.friend.firstName}"),
+                        subTitle: "By ${event.argObject.friend.friend.firstName}"),
                   );
                 }
               }
@@ -164,8 +155,7 @@ class DetailexpBloc extends Bloc<DetailexpEvent, DetailexpState> {
           }
           yield (DetailexpInitialState(
             id: event.argObject.friend.id,
-            pictureUrl:
-                event.argObject.friend.friend.pictureUrl ?? "${userAvatars[0]}",
+            pictureUrl: event.argObject.friend.friend.pictureUrl ?? "${userAvatars[0]}",
             name:
                 "${event.argObject.friend.friend.firstName + ' ' + event.argObject.friend.friend.lastName}",
             phoneNumber: event.argObject.friend.friend.phoneNumber,
@@ -176,28 +166,29 @@ class DetailexpBloc extends Bloc<DetailexpEvent, DetailexpState> {
         }
       } else if (event is SettleUpExpenses) {
         yield (DetailExpLoading());
-        final _expenses =
-            getCurrentExpenses.where((element) => element.to == event.userId);
+
+        final _expenses = getCurrentExpenses.where((element) => element.to == event.userId);
         for (var _exp in _expenses) {
           final _expCopy = _exp;
           _expCopy.cost = 0.0;
           _expCopy.owedShare = 0.0;
           _expCopy.updatedBy = globalUser.id;
-          await ExpensesFunctions.updateExpense(id: _exp.id, expense: _expCopy);
+
+          ExpensesFunctions.updateExpense(id: _exp.id, expense: _expCopy);
+          getCurrentExpenses.removeWhere((e) => e.id == _exp.id);
+          getCurrentExpenses.add(_expCopy);
         }
         await loadExpenses();
 
         yield (DetailExpSuccess());
       } else if (event is DeleteGroup) {
         yield (DetailExpLoading());
-        final _expenses = getCurrentExpenses
-            .where((element) => element.groupId == event.groupId);
-        for (var _expense in _expenses) {
-          await ExpensesFunctions.deleteExpense(id: _expense.id);
-        }
-        await GroupFunctions.deleteGroup(id: event.groupId);
-        await loadGroups();
-        await loadExpenses();
+
+        GroupFunctions.deleteGroup(id: event.groupId);
+
+        getCurrentGroups.removeWhere((g) => g.id == event.groupId);
+        getCurrentExpenses.removeWhere((e) => e.groupId == event.groupId);
+
         yield (DeleteGroupSuccess());
       }
       if (event is DeleteFriend) {

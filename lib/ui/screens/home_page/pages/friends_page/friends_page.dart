@@ -77,7 +77,7 @@ class FriendsMainBody extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
-                      state.friendsList.length > 0
+                      state.friendsList.length + state.settledFriendsList.length > 0
                           ? Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
