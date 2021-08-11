@@ -79,5 +79,5 @@ Contributions of any kind are welcome! See [Contributing Guidelines](CONTRIBUTIN
 
 ## License
 
-JustSplit is licensed under `AGPL-3.0 License`. View [License](LICENSE.md)
+JustSplit is licensed under `Apache 2.0 License`. View [License](LICENSE.md)
 
