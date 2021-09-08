@@ -130,16 +130,15 @@ class _ProfileFormState extends State<ProfileForm> {
     void _onSaveButtonPressed() {
       if (!_formKey.currentState.validate() || _photoUrlController.text == null) return;
 
-      print(_phoneNumberController.text);
-      // BlocProvider.of<ProfileregBloc>(context).add(
-      //   ProfileRegClicked(
-      //     firstName: _firstNameController.text,
-      //     lastName: _lastNameController.text,
-      //     photoUrl: _photoUrlController.text,
-      //     phoneNumber: _phoneNumberController.text,
-      //     defaultCurrency: _defaultCurrencyController.text,
-      //   ),
-      // );
+      BlocProvider.of<ProfileregBloc>(context).add(
+        ProfileRegClicked(
+          firstName: _firstNameController.text,
+          lastName: _lastNameController.text,
+          photoUrl: _photoUrlController.text,
+          phoneNumber: _phoneNumberController.text,
+          defaultCurrency: _defaultCurrencyController.text,
+        ),
+      );
 
       currencySymbol = getCurrencySymbol(
         currencyData: _currencyData,
@@ -211,12 +210,12 @@ class _ProfileFormState extends State<ProfileForm> {
           CurrencyFormField(
             defaultCurrencyCodeController: _defaultCurrencyController,
             currentNode: _currencyNode,
+            nextNode: _phoneNode,
             enabled: true,
           ),
           SizedBox(height: screenHeight * 0.024459975), // 22
           PhoneNumberField(
             focusNode: _phoneNode,
-            nextFocusNode: _currencyNode,
             textInputAction: TextInputAction.done,
             phoneController: _phoneNumberController,
             hintText: 'Phone Number',

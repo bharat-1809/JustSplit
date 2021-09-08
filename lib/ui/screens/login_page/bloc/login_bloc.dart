@@ -30,8 +30,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       if (event is LoginButtonPressed) {
         yield (LoginInProgress());
 
-        await signInWithEmailAndPass(
-            email: event.email, password: event.password);
+        await signInWithEmailAndPass(email: event.email, password: event.password);
 
         await FirebaseAnalytics().logLogin(loginMethod: "email_pass");
 
@@ -45,8 +44,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           logger.i("sdk Initialized");
           logger.i("Checking whether profile is complete");
 
-          if (globalUser.registrationStatus !=
-              "${registrationStatus.registered}") {
+          if (globalUser.registrationStatus != "${registrationStatus.registered}") {
             logger.i("User Profile Incomplete");
 
             yield (LoginNeedsProfileComplete());
@@ -58,8 +56,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             logger.v("Show Notifications: $_notificationStatus");
 
             if (_notificationStatus == null || _notificationStatus == true) {
-              await NotificationHandler.uploadDeviceToken(
-                  userId: globalUser.id);
+              await NotificationHandler.uploadDeviceToken(userId: globalUser.id);
             }
 
             await initializeComments;
@@ -129,8 +126,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield (LoginFailure(message: "Error: ${e.message}"));
     } on TimeoutException catch (e) {
       yield (LoginFailure(message: "Timeout: ${e.message}"));
-    } catch (e) {
+    } on Exception catch (e) {
       yield (LoginFailure(message: e.toString()));
+    } catch (e) {
+      logger.e(e);
+      yield (LoginFailure(message: "Error Signing In"));
     }
   }
 }
