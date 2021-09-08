@@ -210,12 +210,12 @@ class _ProfileFormState extends State<ProfileForm> {
           CurrencyFormField(
             defaultCurrencyCodeController: _defaultCurrencyController,
             currentNode: _currencyNode,
+            nextNode: _phoneNode,
             enabled: true,
           ),
           SizedBox(height: screenHeight * 0.024459975), // 22
           PhoneNumberField(
             focusNode: _phoneNode,
-            nextFocusNode: _currencyNode,
             textInputAction: TextInputAction.done,
             phoneController: _phoneNumberController,
             hintText: 'Phone Number',
