@@ -49,7 +49,7 @@ class VerificationMainBody extends StatelessWidget {
         }
         if (state is ResendVerification) {
           Navigator.of(context).pop();
-          BlocProvider.of(context).add(VerificationInitiated());
+          BlocProvider.of<VerificationBloc>(context).add(VerificationInitiated());
         }
       },
       builder: (context, state) {
