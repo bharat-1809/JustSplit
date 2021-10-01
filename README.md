@@ -1,3 +1,6 @@
+<!-- markdownlint-disable MD033-->
+<!-- markdownlint-disable MD041-->
+<!-- markdownlint-disable MD001-->
 <div align="center">
     <img src="https://raw.githubusercontent.com/bharat-1809/JustSplit/master/JustSplit_header-01.png" />
 </div>
@@ -5,6 +8,7 @@
 <br>
 
 # <div align="center">JustSplit</div>
+
 #### <div align="center">A product of <a href="https://dotstudios.ml">Dot.Studios LLC</a></div><br>
 
 <div align="center">
@@ -64,8 +68,8 @@ Contributions of any kind are welcome! See [Contributing Guidelines](CONTRIBUTIN
 
 ### Overview
 
-- App tries to follow Clean Architecture guidelines. Logic is separated from the UI. 
-- App uses [BLoC](https://bloclibrary.dev/#/coreconcepts) extensively
+- App tries to follow clean architecture guidelines. Logic is separated from the UI.
+- App uses [BLoC](https://bloclibrary.dev/#/coreconcepts) extensively.
 - If you find something in code that looks a bit odd, it might be some useful extension method from `lib/extensions`
 
 <br>
@@ -73,6 +77,7 @@ Contributions of any kind are welcome! See [Contributing Guidelines](CONTRIBUTIN
 ## Donate
 
 > If you found this project helpful or you learned something from the source code and want to thank me, consider buying me a cup of ☕
+>
 > - [PayPal](https://paypal.me/bsharma1809)
 
 <br>
@@ -80,4 +85,3 @@ Contributions of any kind are welcome! See [Contributing Guidelines](CONTRIBUTIN
 ## License
 
 JustSplit is licensed under `Apache 2.0 License`. View [License](LICENSE.md)
-
