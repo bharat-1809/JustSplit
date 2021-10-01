@@ -32,6 +32,7 @@ dependencies:
   fluttertoast: ^7.0.2
   google_sign_in: ^4.5.1
   in_app_review: ^0.2.0+4
+  intl: ^0.17.0
   intl_phone_number_input: ^0.6.0
   json_annotation: ^3.1.1
   logger: ^0.9.1
