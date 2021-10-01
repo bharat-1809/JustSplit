@@ -200,7 +200,7 @@ class SelectListModalState extends State<SelectListModal> {
   }
 
   List<Widget> _buildItemRow(FriendSelectorItem item) {
-    List<Widget> widgets = new List<Widget>();
+    List<Widget> widgets = [];
     widgets.addAll(item.leading ?? []);
     widgets.add(Expanded(child: item.child));
     widgets.add(item.isSelected
