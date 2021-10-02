@@ -20,9 +20,9 @@ class Validator {
     if (password.isEmpty)
       return "This field cannot be empty";
     else if (password.length < 8)
-      return "Password length too short";
+      return "Password is too short. It should contain atleast 8 characters";
     else if (password.contains(" "))
-      return "Password should not contain spaces";
+      return "Password must not contain spaces";
     else
       return null;
   }
@@ -65,7 +65,7 @@ class Validator {
       return "This field cannot be empty";
     else if (number.contains(RegExp(r'[A-Za-z]-+')))
       return "Enter a valid phonenumber";
-    else if (number.length <= 10)
+    else if (number.length < 10)
       return "Enter a valid phonenumber";
     else {
       if (isInternational)
